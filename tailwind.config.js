@@ -7,7 +7,16 @@ module.exports = {
   ],
   important: '#__next',
   theme: {
+    fontFamily : { 
+        'niyai': ["niyai", "serif"], 
+      
+    },
     extend: {}
+   
   },
-  plugins: [],
+  plugins: [
+    // require('@tailwindcss/forms'),
+  ],
 }
+
+

@@ -7,7 +7,11 @@ const rootElement = () => document.getElementById("__next");
 
 const theme = createTheme({
   typography: {
-    fontFamily: " 'Noto Sans Thai', 'Noto Sans JP', sans-serif"
+    fontFamily :
+      "sov_niyai"
+      // header: ["sov_niyai", "serif"], 
+      // // pop: ["pop","sans"], 
+    
   },
   breakpoints: {
     values: {

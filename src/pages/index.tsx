@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Divider, Fade, Grow, IconButton } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
-import { Alegreya_Sans_SC, Old_Standard_TT } from 'next/font/google'
+import { Alegreya_Sans_SC, Old_Standard_TT, Mali } from 'next/font/google'
 import useSWR from 'swr';
 import { DateTime } from 'luxon';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faTiktok, faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { Logo } from '@/svg/Logo';
 
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
@@ -26,13 +26,17 @@ import { HamhamTop } from '@/svg/badge/top/hamham';
 import { HamhamBottom } from '@/svg/badge/bottom/hamham';
 import { HeartTop } from '@/svg/badge/top/heart';
 import { HeartBottom } from '@/svg/badge/bottom/heart';
+import Form from './form';
 
 //
 
 const oldStandard = Old_Standard_TT({ weight : '400', subsets : ['latin'] })
 const alegreya = Alegreya_Sans_SC({ weight : '400', subsets : ['latin'] })
+const mali = Mali({ weight : '400', subsets : ['latin'] })
+
 
 export default function Page() {
+  //state variable with setState func
   const [lastSwap, setLastSwap] = useState<DateTime>(DateTime.now())
   const [now, setNow] = useState<DateTime>(DateTime.now())
   const [openEye, setOpenEye] = useState(true)
@@ -171,6 +175,8 @@ export default function Page() {
     <div className='flex flex-col w-full items-center'>
       <div className={`flex flex-col min-h-screen w-full overflow-x-hidden z-[1] pt-6 pb-16 gap-4 text-[#000000] items-center`}>
         <div className='flex flex-col w-full items-center relative'>
+          {/*แอนิเมชั่้นตาคุณบากุ*/}
+          {/*
           <div className='hover:cursor-pointer' onClick={() => {setOpenEye(!openEye)}}>
             <div className={openEye ? '' : 'hidden'}>
               <img className='hover:cursor-pointer min-[260px]:w-[260px] w-full' src={'/img/baku_head.png'} alt={'baku-bd-chibi'}/>
@@ -179,18 +185,26 @@ export default function Page() {
               <img className='hover:cursor-pointer min-[260px]:w-[260px] w-full' src={'/img/baku_head_open.png'} alt={'baku-bd-chibi'}/>
             </div>
           </div>
+            {/* ตัวอักษร */}
+
+        <div className='w-full h-fit flex flex-row gap-2  top-0 bg-[#FA8128] z-[1] p-2 text-white justify-center items-center'></div>
           <div className='relative w-full sm:h-[150px] min-[500px]:h-[130px] min-[425px]:h-[100px] h-[80px]'>
             <Fade in={true} className='text-center absolute -translate-x-[50%] left-[50%] flex flex-col w-full h-fit'>
               <h1 className=''>
-                <span className={`${oldStandard.className} sm:text-[58px] min-[500px]:text-[48px] min-[425px]:text-[40px] text-[30px]`}>Happy Baku's birthday</span>
-                <span className={`${oldStandard.className} sm:text-3xl min-[500px]:text-2xl min-[425px]:text-xl text-base`}>09th August</span>
+                <span className={`${mali.className} sm:text-[58px] min-[500px]:text-[48px] min-[425px]:text-[40px] text-[30px]`}>Happy 24th birthday, คัมภีร์!</span>
+                <span className={`${mali.className} sm:text-3xl min-[500px]:text-2xl min-[425px]:text-xl text-base`}>November 29th, 2023</span>
               </h1>
             </Fade>
           </div>
-          <img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>
+          {/* แบนเนอร์หลัก */}
+          {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
+        </div> 
+        <div className='w-full'>
+          {Form()}
         </div>
+
         <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
-          <IconButton disableRipple className=' hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
+          <IconButton disableRipple className='hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
             <div className='p-0 w-full h-full flex items-center justify-start'>
               <LeftNav className='md:w-16 md:h-16 min-[425px]:w-12 w-10 min-[425px]:h-12 h-10 z-[1] rotate-180'/>
             </div>
@@ -211,7 +225,7 @@ export default function Page() {
                     <img src={banner.imgURL} className={`transition ease-linear sm:rounded-[50px] w-full object-cover aspect-video ${(isActive)? '' : 'scale-75'}`}/>
                   </div>}
                 </div>
-              )}
+              )} 
             </SwiperSlide> )}
           </Swiper>
         </div>
@@ -322,36 +336,44 @@ export default function Page() {
           <Button onClick={() => postMutate()} variant="outlined" className={`w-fit text-[22px] bg-[#E4CFFF] text-[#4E4670] rounded-[55px] ${alegreya.className} normal-case px-[22px] py-[12px] min-h-0 leading-none border-2 border-[#4E4670]`}>retry <RefreshIcon/></Button>
         </div>}
       </div>
-      <div className='w-full h-fit flex flex-row gap-2 fixed bottom-0 bg-[#4E4670] z-[1] p-2 text-white justify-center items-center'>
-        <Link className="flex min-[431px]:flex-row flex-col items-center gap-1" href={"https://twitter.com/Dreamerism89"} target="_blank">
-            <TwitterIcon className="text-2xl"/>
-            <span className="min-[431px]:text-xl text-xs text-center">ผู้ฝันใฝ่แปลว่าอิสระ</span>
+      {/*headbar ช่องทางติดตาม
+
+        todo:: ทำให้ body เลื่อนลงมาขนาดเท่ากับ ขนาดความสูงของ headbar
+      */}
+      <div className='w-full h-fit flex flex-row gap-2 fixed top-0 bg-[#FA8128] z-[1] p-2 text-white justify-center items-center'>
+        <Link className="flex min-[431px]:flex-row flex-col items-center gap-1" href={"https://discord.gg/p2fY7N4Mcb"} target="_blank">
+            <FontAwesomeIcon className="text-[24px] aspect-square" icon={faDiscord} />
+            <span className="min-[431px]:text-xl text-xs text-center">ดิสคอร์ดแฟนคลับของคัมภีร์</span>
         </Link>
         <Divider className="bg-white" orientation="vertical" flexItem />
         <div className='h-full justify-center items-center flex sm:flex-row flex-col min-[341px]:flex-none flex-1 sm:gap-2'>
-          <span className="sm:text-base text-xs text-center">ติดตาม<b className='underline'>คุณบากุ</b>ได้แล้ววันนี้ ที่</span>
+          <span className="sm:text-base text-xs text-center">ติดตาม<b className='underline'>Kamphee SoAlone</b>ได้แล้วที่</span>
           <div className='min-[341px]:flex grid grid-cols-3 min-[341px]:gap-2'>
-            <Link className='flex items-center shrink-0' href={"https://algorhythm.realic.net/members/illusion/baku"} target="_blank">
-                <img src="/img/logo_arp.png" className="w-[36px]"/>
-            </Link>
-            <Link className='flex items-center' href={"https://www.youtube.com/@Baku_ARP"} target="_blank">
+         
+            <Link className='flex items-center' href={"https://t.co/nCV3vocXPv"} target="_blank">
                 <YouTubeIcon className="text-3xl"/>
             </Link>
-            <Link className='flex items-center' href={"https://twitter.com/Baku_ARP"} target="_blank">
+            <Link className='flex items-center' href={"https://twitter.com/KampheeA"} target="_blank">
                 <TwitterIcon className="text-3xl"/>
             </Link>
-            <Link className='flex items-center' href={"https://www.facebook.com/Baku.ARP"} target="_blank">
+            {/* <Link className='flex items-center' href={"https://www.facebook.com/Baku.ARP"} target="_blank">
                 <FontAwesomeIcon className="text-[24px] aspect-square" icon={faFacebook} />
             </Link>
             <Link className='flex items-center' href={"https://www.tiktok.com/@baku_arp"} target="_blank">
                 <FontAwesomeIcon className="text-[24px] aspect-square" icon={faTiktok} />
-            </Link>
-            <Link className='flex items-center p-1' href={"https://vtuberthaiinfo.com/talent/baku_arp"} target="_blank">
+            </Link> */}
+            <Link className='flex items-center p-1' href={"https://vtuberthaiinfo.com/talent/kamphee"} target="_blank">
                 <Logo className="w-[26px] h-[26px]"/>
+            </Link>
+
+            <Link className='flex items-center shrink-0' href={"https://twitter.com/Autumnia888"} target="_blank">
+                <img src="img\autumniaent.jpg" className="w-[36px] rounded-full"/>
             </Link>
           </div>
         </div>
       </div>
+      
     </div>
   )
 }
+

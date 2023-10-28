@@ -63,13 +63,13 @@ export default function Page() {
       imgURL: "/img/banner/20230808184450-17682c2b-8c3e-4111-a047-0beb7fc945d4.jpeg",
       order: 2
     },
-    {
-      id: "dee279c3-351e-46a2-b20b-77315dcfade0",
-      name: "#กินไก่กินฝัน",
-      url: "https://twitter.com/search?q=%23%E0%B8%81%E0%B8%B4%E0%B8%99%E0%B9%84%E0%B8%81%E0%B9%88%E0%B8%81%E0%B8%B4%E0%B8%99%E0%B8%9D%E0%B8%B1%E0%B8%99",
-      imgURL: "/img/banner/20230807150850-18a3b265-5351-40e0-a0df-992d3bd6d0b8.png",
-      order: 3
-    },
+    // {
+    //   id: "dee279c3-351e-46a2-b20b-77315dcfade0",
+    //   name: "#กินไก่กินฝัน",
+    //   url: "https://twitter.com/search?q=%23%E0%B8%81%E0%B8%B4%E0%B8%99%E0%B9%84%E0%B8%81%E0%B9%88%E0%B8%81%E0%B8%B4%E0%B8%99%E0%B8%9D%E0%B8%B1%E0%B8%99",
+    //   imgURL: "/img/banner/20230807150850-18a3b265-5351-40e0-a0df-992d3bd6d0b8.png",
+    //   order: 3
+    // },
     {
       id: "b9e5882d-67b5-4a05-bbaa-3a71557b4077",
       name: "follow-baku",

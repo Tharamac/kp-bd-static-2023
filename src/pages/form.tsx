@@ -1,4 +1,5 @@
 import { WishEntry } from "@/models/wish_entry";
+import { Button, CircularProgress, Divider} from '@mui/material'
 import { useForm, SubmitHandler } from "react-hook-form";
 export default function Form() {
     type Inputs = {
@@ -8,13 +9,21 @@ export default function Form() {
         isConsentPublish: boolean,
     };
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+
+    const fetchData = async () => {
+        const response = await fetch('/api/storeJSONData')
+        const data = await response.json();
+        console.log(data);
+    }
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>( {defaultValues: { isConsentPublish: false }} );
     const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
-  
+    const onInvalid = (errors: any) => console.error(errors)
 
     //min-[341px]:py-4
+    //onSubmit={handleSubmit(onSubmit)}
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
+        <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
+            <button onClick={fetchData}>Fetch</button>
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-xl font-semibold leading-7 justify-center">อวยพรวันเกิด</h2>
@@ -47,14 +56,15 @@ export default function Form() {
 
                         <div className="col-span-full">
 
-                            <fieldset {...register("cardPattern")}>
+                            <fieldset >
                                 <legend className="text-sm font-semibold leading-6 text-gray-900 flex">เลือกลายการ์ด</legend>
 
                                 <div className="mt-2 space-x-12 flex">
                                     <div className="flex items-center gap-x-3">
                                         <input
                                             id="push-everything"
-                                            name="push-notifications"
+                                        
+                                            {...register("cardPattern")}
                                             value="orangeGoat"
                                             type="radio"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -66,19 +76,19 @@ export default function Form() {
                                     <div className="flex items-center gap-x-3">
                                         <input
                                             id="push-email"
-                                            name="push-notifications"
+                                            {...register("cardPattern")}
                                             type="radio"
                                             value="withSage"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-900">
+                                        {/* <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-900">
                                             หน้ากาก
-                                        </label>
+                                        </label> */}
                                     </div>
                                     <div className="flex items-center gap-x-3">
                                         <input
                                             id="push-nothing"
-                                            name="push-notifications"
+                                            {...register("cardPattern")}
                                             type="radio"
                                             value="bikini"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -119,10 +129,10 @@ export default function Form() {
             <div className="mt-6 flex items-center justify-between gap-x-6">
                 <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
-                        <input id="consent" name="consent" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange"></input>
+                        <input id="consent" {...register("isConsentPublish")} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange"></input>
                     </div>
                     <div className="text-sm">
-                        <label htmlFor="consent"  {...register("isConsentPublish", { required: true, })} className="font-medium text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
+                        <label htmlFor="consent"  className="font-medium text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
                         {/* <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p> */}
                     </div>
                 </div>

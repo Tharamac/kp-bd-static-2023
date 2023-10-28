@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fsPromises from 'fs/promises';
 import path from "path";
 
-const dataFilePath = path.join(process.cwd(), 'public/post.json');
+const dataFilePath = path.join(process.cwd(), 'public/data.json');
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // res.status(200).json({ name: 'John Doe' })
     if (req.method === 'GET') {
@@ -16,16 +16,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Read the existing data from the JSON file
         const jsonData = await fsPromises.readFile(dataFilePath);
         const objectData = JSON.parse(jsonData.toString());
-  
+        console.log(objectData);
         // Get the data from the request body
-        const { name, email } = req.body;
-  
+        const { sender, message, pattern } = req.body;
+        console.log(req.body);
         // Add the new data to the object
         const newData = {
-          name,
-          email
+          sender,
+          message,
+          pattern
         };
-        objectData.push(newData);
+        console.log(newData);
+        objectData["data"].push(newData);
   
         // Convert the object back to a JSON string
         const updatedData = JSON.stringify(objectData);

@@ -1,15 +1,21 @@
 enum CardPattern{
-    bikini,
-    withAutumnSage,
-    orangeGoat,
+    bikini = "bikini",
+    withAutumnSage = "withSage",
+    orangeGoat = "orangeGoat",
+}
+
+interface WishEntryParam {
+    senderName: string, 
+    message:string, 
+    pattern:CardPattern,
 }
 
 class WishEntry{
-    id: string | undefined;
+    id?: string;
     sender: string;
     message: string;
     pattern: CardPattern;
-    constructor(senderName: string, message:string, pattern:CardPattern) {
+    constructor({senderName, message, pattern}: WishEntryParam) {
        // id are auto-generated
         this.message = message;
        this.pattern = pattern

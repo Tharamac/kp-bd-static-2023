@@ -1,6 +1,9 @@
-import { WishEntry } from "@/models/wish_entry";
+import { CardPattern, WishEntry } from "@/models/wish_entry";
 import { Button, CircularProgress, Divider} from '@mui/material'
 import { useForm, SubmitHandler } from "react-hook-form";
+
+
+
 export default function Form() {
     type Inputs = {
         senderName: string,
@@ -15,6 +18,24 @@ export default function Form() {
         const data = await response.json();
         console.log(data);
     }
+
+    const saveData = async () => {
+        const testData = new WishEntry({
+            senderName: "Makuji",
+            message: "Love KP Bikini",
+            pattern: CardPattern.withAutumnSage
+        })   
+        const response = await fetch('/api/storeJSONData', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(testData)
+          });
+          const data = await response.json();
+          console.log(data);
+    }
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>( {defaultValues: { isConsentPublish: false }} );
     const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
     const onInvalid = (errors: any) => console.error(errors)
@@ -24,6 +45,7 @@ export default function Form() {
     return (
         <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
             <button onClick={fetchData}>Fetch</button>
+            <button onClick={saveData}>Save</button>
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-xl font-semibold leading-7 justify-center">อวยพรวันเกิด</h2>

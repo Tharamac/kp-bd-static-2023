@@ -1,7 +1,20 @@
+import { WishEntry } from "@/models/wish_entry";
+import { useForm, SubmitHandler } from "react-hook-form";
 export default function Form() {
+    type Inputs = {
+        senderName: string,
+        wishMessage: string,
+        cardPattern: string,
+        isConsentPublish: boolean,
+    };
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  
+
     //min-[341px]:py-4
     return (
-        <form className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-xl font-semibold leading-7 justify-center">อวยพรวันเกิด</h2>
@@ -12,7 +25,8 @@ export default function Form() {
                             <label htmlFor="sender" className="block text-sm font-medium leading-6 text-gray-900">จาก</label>
                             <div className="mt-2">
                                 <div className="flex rounded-md ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-gray-200 sm:max-w-md">
-                                    <input type="text" name="sender" id="sender"
+                                    <input type="text" id="sender"
+                                        {...register("senderName", { required: true, maxLength: 40 })}
                                         className="block flex-1 border-0 rounded-md bg-white py-1.5 px-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                         placeholder="ชื่อที่อยากให้ปรากฏในการ์ดอวยพร"></input>
                                 </div>
@@ -22,8 +36,8 @@ export default function Form() {
                         <div className="col-span-full">
                             <label htmlFor="wishing" className="block text-sm font-medium leading-6 text-gray-900">คำอวยพร</label>
                             <div className="mt-2">
-                                <textarea id="wishing" name="wishing"
-
+                                <textarea id="wishing_message" 
+                                    {...register("wishMessage", { required: true, })}
                                     className="block w-full rounded-md border-0 py-1.5 px-2 h-[200px] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                                     placeholder="เช่น ขอให้ไม่ปวดหลัง"
                                 ></textarea>
@@ -33,7 +47,7 @@ export default function Form() {
 
                         <div className="col-span-full">
 
-                            <fieldset>
+                            <fieldset {...register("cardPattern")}>
                                 <legend className="text-sm font-semibold leading-6 text-gray-900 flex">เลือกลายการ์ด</legend>
 
                                 <div className="mt-2 space-x-12 flex">
@@ -41,6 +55,7 @@ export default function Form() {
                                         <input
                                             id="push-everything"
                                             name="push-notifications"
+                                            value="orangeGoat"
                                             type="radio"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
@@ -53,6 +68,7 @@ export default function Form() {
                                             id="push-email"
                                             name="push-notifications"
                                             type="radio"
+                                            value="withSage"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
                                         <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -64,6 +80,7 @@ export default function Form() {
                                             id="push-nothing"
                                             name="push-notifications"
                                             type="radio"
+                                            value="bikini"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
                                         <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">
@@ -105,7 +122,7 @@ export default function Form() {
                         <input id="consent" name="consent" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange"></input>
                     </div>
                     <div className="text-sm">
-                        <label htmlFor="consent" className="font-medium text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
+                        <label htmlFor="consent"  {...register("isConsentPublish", { required: true, })} className="font-medium text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
                         {/* <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p> */}
                     </div>
                 </div>

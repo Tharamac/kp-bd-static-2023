@@ -138,6 +138,7 @@ export default function Page() {
   const swiperRef = useRef<SwiperClass | null>(null);
 
   const { data:postData, error:postError, isLoading:postIsLoading, isValidating:postIsValidating, mutate:postMutate } = useSWR('/post.json', async (url) => {
+    console.log("load data")
     setPage(0)
     const res = await fetch(url)
     if(!res.ok){

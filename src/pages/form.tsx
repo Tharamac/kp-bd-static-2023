@@ -21,11 +21,6 @@ export default function Form() {
     }
 
     const saveData = async (entry: WishEntry) => {
-        const testData = new WishEntry({
-            senderName: "Makuji",
-            message: "Love KP Bikini",
-            pattern: CardPattern.withAutumnSage
-        })   
         const response = await fetch('/api/storeJSONData', {
             method: 'POST',
             headers: {

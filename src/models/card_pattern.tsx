@@ -1,7 +1,7 @@
 
 enum CardPattern{
     bikini = "bikini",
-    withAutumnSage = "withSage",
+    withSage = "withSage",
     orangeGoat = "orangeGoat",
 }
 

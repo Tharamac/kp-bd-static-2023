@@ -17,16 +17,15 @@ class WishEntry{
     pattern: CardPattern;
     constructor({senderName, message, pattern}: WishEntryParam) {
        // id are auto-generated
-    this.message = message;
-       this.pattern = pattern
-       this.sender = senderName
+        this.message = message;
+        this.pattern = pattern
+        this.sender = senderName
     }
 
     public static fromInputs(entry: Inputs): WishEntry{
         const wishEntry = new WishEntry({
             senderName: entry.senderName,
             message: entry.wishMessage,
-            // pattern: CardPattern.bikini,
             pattern: cardPatternMatch(entry.cardPattern),
         })
         wishEntry.id = uuidv4()

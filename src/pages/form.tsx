@@ -1,7 +1,8 @@
 import { CardPattern, WishEntry } from "@/models/wish_entry";
 import { Button, CircularProgress, Divider} from '@mui/material'
-import { useForm, SubmitHandler, UseFormSetError } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormSetError, SubmitErrorHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import Emoji from "@/component.tsx/emoji";
 
 export type Inputs = {
     senderName: string,
@@ -19,7 +20,7 @@ export default function Form() {
         console.log(data);
     }
 
-    const saveData = async () => {
+    const saveData = async (entry: WishEntry) => {
         const testData = new WishEntry({
             senderName: "Makuji",
             message: "Love KP Bikini",
@@ -30,55 +31,26 @@ export default function Form() {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(testData)
+            body: JSON.stringify(entry)
           });
-          const data = await response.json();
-          console.log(data);
+        const data = await response.json();
+        console.log(data);
     }
 
     const { register, handleSubmit, watch, setError, formState: { errors } } = useForm<Inputs>( {defaultValues: { isConsentPublish: false }}, );
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(!data.cardPattern)
-        // const inputs = [
-        //     {
-        //       type: "manual",
-        //       name: "cardPattern",
-        //       message: "Double Check This",
-        //     },
-        //     {
-        //       type: "manual",
-        //       name: "isConsentPublish",
-        //       message: "Triple Check This",
-        //     },
-        //   ]
-
-        //   inputs.forEach(({ type, name,  message }) => {
-        //     setError(name, { type, message })
-        //   })
-        if(!data.cardPattern)
-        {  
-            setError("cardPattern", {
-                type:  "manual",
-                message: "กรุณายินยอม"
-            });
-        }
-        if(!data.isConsentPublish){
-            setError("isConsentPublish", {
-                type: "manual",
-                message: "กรุณายินยอม"
-            });
-        }
         const entry = WishEntry.fromInputs(data);
+        saveData(entry);
         console.log(entry);
     }
-    const onInvalid = (errors: any) => console.error(errors)
+    const onInvalid: SubmitErrorHandler<Inputs> = (errors) => {
+        return console.error(errors);
+    }
  
     //min-[341px]:py-4
     //onSubmit={handleSubmit(onSubmit)}w
     return (
         <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
-            {/* <button onClick={fetchData}>Fetch</button>
-            <button onClick={saveData}>Save</button> */}
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-xl font-semibold leading-7 justify-center">อวยพรวันเกิด</h2>
@@ -96,7 +68,7 @@ export default function Form() {
                                 <ErrorMessage
                                     errors={errors}
                                     name="senderName"
-                                    render={({ message }) => <p className="text-[#b90e0a] mt-2">{message}</p>}
+                                    render={({ message }) => <p className="text-[#b90e0a] mt-2"><Emoji symbol="❗" ></Emoji> {message}</p>}
                                 />
                             </div>
                         </div>
@@ -113,7 +85,7 @@ export default function Form() {
                             <ErrorMessage
                                     errors={errors}
                                     name="wishMessage"
-                                    render={({ message }) => <p className="text-[#b90e0a] mt-2">{message}</p>}
+                                    render={({ message }) => <p className="text-[#b90e0a] mt-2"><Emoji symbol="❗" ></Emoji> {message}</p>}
                                 />
                             {/* <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences wishing yourself.</p> */}
                         </div>
@@ -127,7 +99,7 @@ export default function Form() {
                                         <input
                                             id="push-everything"
                                         
-                                            {...register("cardPattern")}
+                                            {...register("cardPattern", {required: " \"เลือกซักอย่างนึงดิ๊ โธ่\" - คัมภีร์ไม่ได้กล่าว"})}
                                             value="orangeGoat"
                                             type="radio"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -151,7 +123,7 @@ export default function Form() {
                                     <div className="flex items-center gap-x-3">
                                         <input
                                             id="push-nothing"
-                                            {...register("cardPattern")}
+                                            {...register("cardPattern",  )}
                                             type="radio"
                                             value="bikini"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -164,10 +136,10 @@ export default function Form() {
                             </fieldset>
                             {/* {errors. && <p>{errors.username.message}</p>} */}
                             <ErrorMessage
-                                    errors={errors}
-                                    name="cardPattern"
-                                    render={({ message }) => <p className="text-[#b90e0a] mt-2">{message}</p>}
-                                />
+                                errors={errors}
+                                name="cardPattern"
+                                render={({ message }) => <p className="text-[#b90e0a] mt-2"><Emoji symbol="❗" ></Emoji> {message}</p>}
+                            />
 
                         </div>
 
@@ -196,19 +168,22 @@ export default function Form() {
             </div>
 
             <div className="mt-6 flex items-center justify-between gap-x-6">
+                <div>
                 <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
-                        <input id="consent" {...register("isConsentPublish")} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange"></input>
+                        <input id="consent" {...register("isConsentPublish", {required: "กรุณายินยอมให้เผยแพร่ด้วยนะคร้าบบบบบ"})} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange"></input>
                     </div>
                     <div className="text-sm">
                         <label htmlFor="consent"  className="font-medium text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
                         {/* <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p> */}
                     </div>
-                    <ErrorMessage
-                                    errors={errors}
-                                    name="isConsentPublish"
-                                    render={({ message }) => <p className="text-[#b90e0a] mt-2">{message}</p>}
-                                />
+                   
+                </div> 
+                <ErrorMessage
+                        errors={errors}
+                        name="isConsentPublish"
+                        render={({ message }) => <p className="text-[#b90e0a] mt-2"><Emoji symbol="🙏" ></Emoji> {message}</p>}
+                    />
                 </div>
                 <div className="flex items-center gap-x-6">
                     <button type="reset" className="text-sm font-semibold leading-6 text-gray-900">เคลียร์ฟอร์ม</button>

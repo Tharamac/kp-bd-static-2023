@@ -1,7 +1,7 @@
 import { Button, CircularProgress, Divider, Fade, Grow, IconButton } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { Alegreya_Sans_SC, Old_Standard_TT, Mali } from 'next/font/google'
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { DateTime } from 'luxon';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -27,6 +27,7 @@ import { HamhamBottom } from '@/svg/badge/bottom/hamham';
 import { HeartTop } from '@/svg/badge/top/heart';
 import { HeartBottom } from '@/svg/badge/bottom/heart';
 import Form from './form';
+import { CardPattern, WishEntry, WishEntryDto } from '@/models/wish_entry';
 
 //
 
@@ -133,11 +134,11 @@ export default function Page() {
       setOpenEye(!openEye)
     }
   }, [now])
-  
+
 
   const swiperRef = useRef<SwiperClass | null>(null);
 
-  const { data:postData, error:postError, isLoading:postIsLoading, isValidating:postIsValidating, mutate:postMutate } = useSWR('/post.json', async (url) => {
+  const { data:postData, error:postError, isLoading:postIsLoading, isValidating:postIsValidating, mutate: postMutatee } = useSWR('/post.json', async (url) => {
     console.log("load data")
     setPage(0)
     const res = await fetch(url)
@@ -172,6 +173,26 @@ export default function Page() {
     revalidateOnFocus : false
   })
 
+  const { data: wishData, error: wishPostError, isLoading: wishpostIsLoading, isValidating: wishpostIsValidating, mutate: postMutate } = useSWR('/data.json', async (url) => {
+    console.log("load data")
+    setPage(0)
+    const res = await fetch(url)
+    if(!res.ok){
+        return {
+            data : [],
+            total : 0
+        }
+    }
+    setPage(1)
+    const result = await res.json() as { data: WishEntryDto[] }
+    const postResult = result.data.map((wish, index) => WishEntry.fromDto(wish))
+    console.log(postResult)
+    return postResult;
+  },{
+    revalidateOnMount : true,
+    revalidateOnFocus : false
+  })
+
   return (
     <div className='flex flex-col w-full items-center'>
       <div className={`flex flex-col min-h-screen w-full overflow-x-hidden z-[1] pt-6 pb-16 gap-4 text-[#000000] items-center`}>
@@ -201,7 +222,7 @@ export default function Page() {
           {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
         </div> 
         <div className='w-full'>
-          {Form()}
+          <Form mutateFunction={postMutate}></Form>
         </div>
 
         <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
@@ -334,7 +355,7 @@ export default function Page() {
         </div>}
         { postError && (!postIsLoading || !postIsValidating) && <div className="w-full h-fit p-8 flex flex-col items-center gap-2">
           เกิดความผิดพลาดในระบบ กรุณาลองใหม่
-          <Button onClick={() => postMutate()} variant="outlined" className={`w-fit text-[22px] bg-[#E4CFFF] text-[#4E4670] rounded-[55px] ${alegreya.className} normal-case px-[22px] py-[12px] min-h-0 leading-none border-2 border-[#4E4670]`}>retry <RefreshIcon/></Button>
+          <Button onClick={() => postMutatee()} variant="outlined" className={`w-fit text-[22px] bg-[#E4CFFF] text-[#4E4670] rounded-[55px] ${alegreya.className} normal-case px-[22px] py-[12px] min-h-0 leading-none border-2 border-[#4E4670]`}>retry <RefreshIcon/></Button>
         </div>}
       </div>
       {/*headbar ช่องทางติดตาม

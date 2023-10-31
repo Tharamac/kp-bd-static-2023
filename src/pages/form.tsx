@@ -11,7 +11,7 @@ export type Inputs = {
     isConsentPublish: boolean,
 };
 
-export default function Form() {
+export default function Form({mutateFunction}: {mutateFunction: Function}) {
  
 
     const fetchData = async () => {
@@ -20,7 +20,7 @@ export default function Form() {
         console.log(data);
     }
 
-    const saveData = async (entry: WishEntry) => {
+    const saveData = async (entry: WishEntry, postMutate: Function) => {
         const response = await fetch('/api/storeJSONData', {
             method: 'POST',
             headers: {
@@ -28,15 +28,16 @@ export default function Form() {
             },
             body: JSON.stringify(entry)
           });
-        const data = await response.json();
+        const data = await response.json();     
+        postMutate()
         console.log(data);
     }
 
-    const { register, handleSubmit, watch, setError, formState: { errors } } = useForm<Inputs>( {defaultValues: { isConsentPublish: false }}, );
-    const onSubmit: SubmitHandler<Inputs> = data => {
+    const { register, handleSubmit, watch, setError, reset, formState: { errors } } = useForm<Inputs>( {defaultValues: { isConsentPublish: false }}, );
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        reset();
         const entry = WishEntry.fromInputs(data);
-        saveData(entry);
-        console.log(entry);
+        await saveData(entry, mutateFunction);
     }
     const onInvalid: SubmitErrorHandler<Inputs> = (errors) => {
         return console.error(errors);

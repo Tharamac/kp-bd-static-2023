@@ -5,6 +5,10 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react"
 import Carousel from 'react-material-ui-carousel'
 // import { Carousel } from "@material-tailwind/react";
 import { Paper, Button } from '@mui/material'
+import WishFullCard from "./wish-modal-card"
+import { CardPattern, getStyle } from "@/models/card-pattern"
+import { WishEntry } from "@/models/wish-entry"
+import { DateTime } from "luxon"
 
 
 // const oldStandard = Old_Standard_TT({ weight : '400', subsets : ['latin'] })
@@ -95,38 +99,30 @@ export default function Banner({dimensions}: {dimensions: Dimension}) {
         }
     ]
 
-    return (
-      <div className="absolute max-w-[1400px] h-[780px] w-full m-auto p-16">
+    const style = getStyle(CardPattern.bikini)
 
-        {/* <Box sx={style}> */}
-       {/* <Carousel className="rounded-xl" > */}
-       {/* {
-                items.map( (item, i) => <Item key={i} item={item} /> )
-            } */}
-      {/* <img
-        src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-        alt="image 1"
-        className="h-[720px] w-[400px] object-cover"
-      />
-      <img
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-        alt="image 2"
-        className="h-[720px] w-[400px] object-cover"
-      />
-      <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-        alt="image 3"
-        className="h-[720px] w-[400px] object-cover"
-      /> */}
-    {/* </Carousel>  */}
-        {/* </Box> */}
-            {/* */}
-        <Carousel index={1} autoPlay={false} animation="slide"  indicators={false} className="relative max-w-[1400px] h-[780px] w-full m-auto p-16">
+    return (
+
+
+      <div 
+      // className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[1400px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}
+      >
+        <Carousel autoPlay={false} animation="slide"  indicators={false} className="w-full h-full"
+        >
             {
-                items.map( (item, i) => <Item key={i} item={item} /> )
+                items.map( (item, i) => <WishFullCard key={"edfewdsdf"} data={
+                  new WishEntry(
+                  {  
+                    id: "hyuguygugyyug",
+                    senderName: "sdsadsadsa",
+                    message: "dsdasdsadsadsa",
+                    pattern: CardPattern.bikini,
+                    createdDate: DateTime.now()
+                  })
+                }/> )
             }
         </Carousel>
-        </div>
+  </div>
     )
     // return (
 
@@ -166,7 +162,7 @@ export default function Banner({dimensions}: {dimensions: Dimension}) {
 function Item(props: { item: { name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; description: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined } })
 {
     return (
-        <Paper className="justify-center max-h-[720px] p-16 justify-self-center">
+        <Paper>
             <h2>{props.item.name}</h2>
             <p>{props.item.description}</p>
 

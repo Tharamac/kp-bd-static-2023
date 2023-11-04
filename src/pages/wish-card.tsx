@@ -1,11 +1,14 @@
 import { getStyle } from "@/models/card-pattern";
 import { WishEntry } from "@/models/wish-entry";
+import { MouseEventHandler } from "react";
 
 export default function WishCard({data, onOpenModal}: {data: WishEntry, onOpenModal?: () => void}){
     const style = getStyle(data.pattern);
     return (
-      <div key={data.id}
-       onClick={onOpenModal}
+      <div 
+       onClick={
+        onOpenModal
+       }
       className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
         <div className='flex w-full flex-col px-4 py-2  top-0 left-0'>
           <div className='flex'>

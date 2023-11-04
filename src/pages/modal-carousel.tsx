@@ -2,8 +2,10 @@ import { Fragment, useRef, useState } from 'react'
 // import { Dialog, Transition } from '@headlessui/react'
 
 import React from "react";
-import { Modal, Button, Box, Typography, Dialog, DialogContent, makeStyles } from '@mui/material'
+import { Modal, Button, Box, Typography, Dialog, DialogContent, makeStyles, DialogContentText, DialogTitle, DialogActions } from '@mui/material'
 import Banner, { Dimension } from './banner';
+import { WishEntry } from '@/models/wish-entry';
+import WishFullCard from './wish-modal-card';
 // import {
 //   Button,
 //   Dialog,
@@ -43,31 +45,39 @@ const style = {
   //   }
   // }));
      
-export default function WishCardModal({dimensions, open, handleClose}:{dimensions: Dimension, open:boolean, handleClose: () => void}) {
-  const [openmodal, setOpen] = useState(false)
-  // const classes = useStyles();
-
-  // const cancelButtonRef = useRef(null)
-  // const handleOpen = () => setOpen(true);
-  const handleClosed = () => setOpen(false);
-
-
-  
-
+export default function WishCardModal({data, dimensions, open, handleClose}: {data?: WishEntry, dimensions: Dimension, open:boolean, handleClose: () => void}) {
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
-
-    <Modal
-          open={open}
-          className="justify-center w-[1400px] h-[720px] absolute"
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
       >
+            <WishFullCard key={data?.id} data={data}></WishFullCard>
+               {/* <Banner dimensions={dimensions}></Banner>  */}
+        {/* <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions> */}
+      </Dialog>
+
+
      
-     <Banner dimensions={dimensions}></Banner>
-      </Modal>
+   {/* <Banner dimensions={dimensions}></Banner>  */}
+
       </div>
     // <Transition.Root show={open} as={Fragment}>
     //   <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>

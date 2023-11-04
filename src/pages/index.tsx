@@ -48,6 +48,7 @@ export default function Page() {
   const pageSize = 10
   const swapTime = 5
   const [open, setOpenModal] = useState(false) // open modal
+  const [modalData, setModalData] = useState<WishEntry>() // show  modal data
   const [page, setPage] = useState(1)
   const [dimensions, setDimensions] = useState({
     width: 0,
@@ -239,7 +240,7 @@ export default function Page() {
 
    {/* แบนเนอร์หลัก */}
           {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
-        <WishCardModal dimensions={dimensions} open={open} handleClose={handleClose}/>
+  
         <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
           <IconButton disableRipple className='hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
             <div className='p-0 w-full h-full flex items-center justify-start'>
@@ -268,8 +269,18 @@ export default function Page() {
         </div>
         
 
-        
-        {wishData?.data.map((post, index) => <WishCard data={post} onOpenModal={handleOpen}/>
+        <WishCardModal data={modalData} dimensions={dimensions} open={open} handleClose={
+          () => {
+            setModalData(undefined)
+            setOpenModal(false)
+          }
+          }/>
+        {wishData?.data.map((post, index) => <WishCard key={post.id} data={post} onOpenModal={
+          () => {
+            setModalData(post)
+            setOpenModal(true)
+          }
+        }/>
         // const style = getStyle(post.pattern)
           // return (
           //   <div className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>

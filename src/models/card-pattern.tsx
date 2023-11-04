@@ -17,7 +17,7 @@ function cardPatternMatch(patternString: string): CardPattern {
 // }
 
 
-function getStyle(pattern: CardPattern) {
+function getStyle(pattern?: CardPattern) {
     switch (pattern){
         case CardPattern.bikini:
         case CardPattern.withSage:

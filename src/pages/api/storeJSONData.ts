@@ -18,17 +18,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const objectData = JSON.parse(jsonData.toString());
         console.log(objectData);
         // Get the data from the request body
-        const {id, sender, message, pattern } = req.body;
+        const {id, sender, message, pattern, createdDate } = req.body;
         console.log(req.body);
         // Add the new data to the object
         const newData = {
           id,
           sender,
           message,
-          pattern
+          pattern,
+          createdDate,
         };
         console.log(newData);
         objectData["data"].push(newData);
+        const count = (objectData["data"] as Array<any>).length
+        objectData["total"] = count;
+        
   
         // Convert the object back to a JSON string
         const updatedData = JSON.stringify(objectData);

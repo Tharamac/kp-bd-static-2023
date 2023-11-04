@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Divider, Fade, Grow, IconButton } from '@mui/material'
+import { Button, CircularProgress, Divider, Fade, Grow, IconButton, Modal } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { Alegreya_Sans_SC, Old_Standard_TT, Mali } from 'next/font/google'
 import useSWR, { mutate } from 'swr';
@@ -27,7 +27,11 @@ import { HamhamBottom } from '@/svg/badge/bottom/hamham';
 import { HeartTop } from '@/svg/badge/top/heart';
 import { HeartBottom } from '@/svg/badge/bottom/heart';
 import Form from './form';
-import { CardPattern, WishEntry, WishEntryDto } from '@/models/wish_entry';
+import { CardPattern, WishEntry, WishEntryDto } from '@/models/wish-entry';
+import Banner from './banner';
+import WishCardModal from './modal-carousel';
+import { getStyle } from '@/models/card-pattern';
+import WishCard from './wish-card';
 
 //
 
@@ -43,11 +47,15 @@ export default function Page() {
   const [openEye, setOpenEye] = useState(true)
   const pageSize = 10
   const swapTime = 5
+  const [open, setOpenModal] = useState(false) // open modal
   const [page, setPage] = useState(1)
   const [dimensions, setDimensions] = useState({
     width: 0,
     height: 0,
   });
+
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   const banners = [
     {
@@ -139,7 +147,7 @@ export default function Page() {
   const swiperRef = useRef<SwiperClass | null>(null);
 
   const { data:postData, error:postError, isLoading:postIsLoading, isValidating:postIsValidating, mutate: postMutatee } = useSWR('/post.json', async (url) => {
-    console.log("load data")
+   
     setPage(0)
     const res = await fetch(url)
     if(!res.ok){
@@ -148,8 +156,10 @@ export default function Page() {
             total : 0
         }
     }
-    setPage(1)
-    return (await res.json()) as {
+    setPage(1) 
+    const result = await res.json()
+    console.log(result)
+    return (result) as {
       data : {
         id : string,
         name : string,
@@ -184,10 +194,13 @@ export default function Page() {
         }
     }
     setPage(1)
-    const result = await res.json() as { data: WishEntryDto[] }
-    const postResult = result.data.map((wish, index) => WishEntry.fromDto(wish))
-    console.log(postResult)
-    return postResult;
+    const result = await res.json() as { data: WishEntryDto[], total: number }
+    const wishingList: WishEntry[] = result.data.map((wish, index) => WishEntry.fromDto(wish))
+    const postResult = {
+      data: wishingList as WishEntry[],
+      total: result.total
+    }
+    return postResult
   },{
     revalidateOnMount : true,
     revalidateOnFocus : false
@@ -218,13 +231,15 @@ export default function Page() {
               </h1>
             </Fade>
           </div>
-          {/* แบนเนอร์หลัก */}
-          {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
+       
         </div> 
         <div className='w-full'>
           <Form mutateFunction={postMutate}></Form>
         </div>
 
+   {/* แบนเนอร์หลัก */}
+          {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
+        <WishCardModal dimensions={dimensions} open={open} handleClose={handleClose}/>
         <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
           <IconButton disableRipple className='hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
             <div className='p-0 w-full h-full flex items-center justify-start'>
@@ -251,6 +266,43 @@ export default function Page() {
             </SwiperSlide> )}
           </Swiper>
         </div>
+        
+
+        
+        {wishData?.data.map((post, index) => <WishCard data={post} onOpenModal={handleOpen}/>
+        // const style = getStyle(post.pattern)
+          // return (
+          //   <div className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
+          //     <div className='flex w-full flex-col px-4 py-2  top-0 left-0'>
+          //       <div className='flex'>
+          //         {<img src={style.headerImageSource} className='h-[80px] object-contain'/>} 
+                 
+          //       </div>
+          //     </div>
+          //     {/* {ข้อความ} */}
+          //     <div className='flex flex-1 h-full flex-col relative overflow-hidden px-4 py-2'>
+          //       <span className='text-center text-[#4E4670] sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{post.message}</span>
+
+          //       <div className='w-full flex grid grid-rows-1 grid-flow-col gap-1 pt-4 min-[425px]:pl-1  min-[425px]:text-base text-sm justify-between'>
+          //       <b className='text-[#4E4670] min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{post.sender}</b>
+          //         <span className='row-start-1 row-span-2'>{post.createdDate.toFormat('dd LLLL yyyy HH:mm')}
+               
+          //           {/* {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('LLLL')}
+          //   {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('yy')} */}
+          //         </span>   {<img src={style.footerImageSource} className='h-[80px] object-contain row-end-2  row-span-2'/>} 
+          //         {/* <span className='flex-1 text-right'>{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('HH')}:{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('mm')
+          //   }
+          //   </span> */}
+          //       </div>
+          //     </div>
+          //   </div>
+
+          // );
+        )} 
+     
+
+        
+
         {!postError && !postIsLoading && <div className='w-full container '>
           <InfiniteScroll
             dataLength={pageSize*page < (postData?.total as number) ? pageSize*page : (postData?.total as number)} //This is important field to render the next data
@@ -267,10 +319,13 @@ export default function Page() {
             {postData?.data.slice(0,pageSize*page).map((post, index) => (
               <Grow key={post.id} in timeout={1000}>
                 <div className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] text-black/50`} >
+                    {/* กรอบ*/}
                     <BadgeBody className='absolute top-0 left-0 w-full h-[300vh] object-fill -z-[1]' style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
+                      color: '#DE45df',
+                      // color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
                       borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
                     }}/>
+
                     {post.gift.name == 'cowswiss' && <CowSwissTop style={{
                       color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
                       borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
@@ -297,6 +352,7 @@ export default function Page() {
                         <b className='text-[#4E4670] min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{post.name}</b>
                       </div>
                     </div>
+                    {/*ข้อความ*/}
                     <div className='flex flex-1 h-full flex-col relative overflow-hidden px-4 py-2'>
                       <span className='text-center text-[#4E4670] sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{post.comment}</span>
                       <div className='w-full flex pt-4 min-[425px]:px-4 px-2 min-[425px]:text-base text-sm '>

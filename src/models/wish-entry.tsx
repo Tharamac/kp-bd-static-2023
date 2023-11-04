@@ -1,7 +1,7 @@
 import { Inputs } from "@/pages/form";
-import { CardPattern, cardPatternMatch } from "./card_pattern";
+import { CardPattern, cardPatternMatch } from "./card-pattern";
 import {v4 as uuidv4} from 'uuid';
-
+import { DateTime } from 'luxon';
 
 
 interface WishEntryParam {
@@ -9,6 +9,7 @@ interface WishEntryParam {
     senderName: string, 
     message: string, 
     pattern: CardPattern,
+    createdDate: DateTime,
 }
 
 type WishEntryDto = {
@@ -16,6 +17,7 @@ type WishEntryDto = {
     sender: string, 
     message: string, 
     pattern: CardPattern,
+    createdDate: string,
 }
 
 
@@ -24,11 +26,14 @@ class WishEntry{
     sender: string;
     message: string;
     pattern: CardPattern;
-    constructor({id, senderName, message, pattern}: WishEntryParam) {
+    createdDate: DateTime;
+    
+    constructor({id, senderName, message, pattern, createdDate}: WishEntryParam) {
         this.id = id
         this.message = message;
         this.pattern = pattern
         this.sender = senderName
+        this.createdDate = createdDate
     }
 
     public static fromInputs(entry: Inputs): WishEntry{
@@ -37,6 +42,7 @@ class WishEntry{
             senderName: entry.senderName,
             message: entry.wishMessage,
             pattern: cardPatternMatch(entry.cardPattern),
+            createdDate: DateTime.now(),
         })
     }
 
@@ -46,6 +52,8 @@ class WishEntry{
             senderName: entry.sender,
             message: entry.message,
             pattern: cardPatternMatch(entry.pattern),
+            createdDate: DateTime.fromISO(entry.createdDate).setZone('Asia/Bangkok')
+            
         })
     }
 }

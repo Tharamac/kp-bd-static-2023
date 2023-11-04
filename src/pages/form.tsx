@@ -1,4 +1,4 @@
-import { CardPattern, WishEntry } from "@/models/wish_entry";
+import { CardPattern, WishEntry } from "@/models/wish-entry";
 import { Button, CircularProgress, Divider} from '@mui/material'
 import { useForm, SubmitHandler, UseFormSetError, SubmitErrorHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";

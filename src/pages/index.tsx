@@ -151,44 +151,8 @@ export default function Page() {
 
   const swiperRef = useRef<SwiperClass | null>(null);
 
-  const { data:postData, error:postError, isLoading:postIsLoading, isValidating:postIsValidating, mutate: postMutatee } = useSWR('/post.json', async (url) => {
-   
-    setPage(0)
-    const res = await fetch(url)
-    if(!res.ok){
-        return {
-            data : [],
-            total : 0
-        }
-    }
-    setPage(1) 
-    const result = await res.json()
-    console.log(result)
-    return (result) as {
-      data : {
-        id : string,
-        name : string,
-        comment : string
-        giftId : string,
-        createdAt : string,
-        gift : {
-          id: string;
-          name: string;
-          desc: string | null;
-          imgURL: string;
-          bgColorCode: string;
-          borderColor: string;
-          order: number;
-        }
-      }[],
-      total : number
-    }
-  },{
-    revalidateOnMount : true,
-    revalidateOnFocus : false
-  })
 
-  const { data: wishData, error: wishPostError, isLoading: wishpostIsLoading, isValidating: wishpostIsValidating, mutate: postMutate } = useSWR('/data.json', async (url) => {
+  const { data: wishData, error: wishPostError, isLoading: wishPostIsLoading, isValidating: wishPostIsValidating, mutate: postMutate } = useSWR('/data.json', async (url) => {
     console.log("load data")
     setPage(0)
     const res = await fetch(url)
@@ -283,173 +247,58 @@ export default function Page() {
       
         <WishCardModalCarousel data={wishData?.data[dataIndex]!} order={{
           current: dataIndex,
-          total : wishData?.total as number
-        }}  onChangeIndex={
+          total: wishData?.total as number
+        }} onChangeIndex={
           (add) => {
             const length = wishData?.total as number
             const nextIndex = dataIndex + add
-            if(nextIndex >= length)
+            if (nextIndex >= length)
               setModalDataIndex(0)
             else if (nextIndex < 0)
-            setModalDataIndex(length - 1)
+              setModalDataIndex(length - 1)
             else setModalDataIndex(nextIndex)
           }
-      }
-        
+        }
+
           open={open} handleClose={
-          () => {
-            setOpenModal(false)        
-          }
-          }/>
-        {wishData?.data.map((post, index) => <WishCard key={post.id} data={post} onOpenModal={
-          () => {
-            console.log(`checked ${index}`)
-            setModalDataIndex(index)
-            setOpenModal(true)
-          }
-        }/>
-        // const style = getStyle(post.pattern)
-          // return (
-          //   <div className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
-          //     <div className='flex w-full flex-col px-4 py-2  top-0 left-0'>
-          //       <div className='flex'>
-          //         {<img src={style.headerImageSource} className='h-[80px] object-contain'/>} 
-                 
-          //       </div>
-          //     </div>
-          //     {/* {ข้อความ} */}
-          //     <div className='flex flex-1 h-full flex-col relative overflow-hidden px-4 py-2'>
-          //       <span className='text-center text-[#4E4670] sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{post.message}</span>
+            () => {
+              setOpenModal(false)
+            }
+          } />
 
-          //       <div className='w-full flex grid grid-rows-1 grid-flow-col gap-1 pt-4 min-[425px]:pl-1  min-[425px]:text-base text-sm justify-between'>
-          //       <b className='text-[#4E4670] min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{post.sender}</b>
-          //         <span className='row-start-1 row-span-2'>{post.createdDate.toFormat('dd LLLL yyyy HH:mm')}
-               
-          //           {/* {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('LLLL')}
-          //   {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('yy')} */}
-          //         </span>   {<img src={style.footerImageSource} className='h-[80px] object-contain row-end-2  row-span-2'/>} 
-          //         {/* <span className='flex-1 text-right'>{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('HH')}:{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('mm')
-          //   }
-          //   </span> */}
-          //       </div>
-          //     </div>
-          //   </div>
-
-          // );
-        )} 
-     
-
-        
-
-        {!postError && !postIsLoading && <div className='w-full container '>
+        {!wishPostError && !wishPostIsLoading && <div className='w-full container '>
           <InfiniteScroll
-            dataLength={pageSize*page < (postData?.total as number) ? pageSize*page : (postData?.total as number)} //This is important field to render the next data
+            dataLength={pageSize*page < (wishData?.total as number) ? pageSize*page : (wishData?.total as number)} //This is important field to render the next data
             next={async () => {
               await new Promise(r => setTimeout(r, 1000));
               setPage(page+1)
             }}
-            hasMore={pageSize*page < (postData?.total as number)}
+            hasMore={pageSize*page < (wishData?.total as number)}
             loader={<div className="xl:col-span-3 md:col-span-2 h-fit p-8 flex justify-center">
                 <CircularProgress />
             </div>}
             className="w-full grid xl:grid-cols-3 md:grid-cols-2 gap-4 px-4 min-[341px]:py-4 pt-4 pb-12 items-center h-full justify-center"
           >
-            {postData?.data.slice(0,pageSize*page).map((post, index) => (
+            {wishData?.data.slice(0,pageSize*page).map((post, index) => (
               <Grow key={post.id} in timeout={1000}>
-                <div className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] text-black/50`} >
-                    {/* กรอบ*/}
-                    <BadgeBody className='absolute top-0 left-0 w-full h-[300vh] object-fill -z-[1]' style={{
-                      color: '#DE45df',
-                      // color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }}/>
-
-                    {post.gift.name == 'cowswiss' && <CowSwissTop style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }} className=''/>}
-                    {post.gift.name == 'tapir' && <TapirTop style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }} className=''/>}
-                    {post.gift.name == 'banana' && <BananaTop style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }} className=''/>}
-                    {post.gift.name == 'hamham' && <HamhamTop style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }} className=''/>}
-                    {post.gift.name == 'heart' && <HeartTop style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }} className=''/>}
-                    <div className='flex w-full flex-col px-4 py-2 absolute top-0 left-0'>
-                      <div className='flex'>
-                        {post.giftId && <img src={post.gift?.imgURL} className='h-[80px] object-contain'/>}
-                        <b className='text-[#4E4670] min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{post.name}</b>
-                      </div>
-                    </div>
-                    {/*ข้อความ*/}
-                    <div className='flex flex-1 h-full flex-col relative overflow-hidden px-4 py-2'>
-                      <span className='text-center text-[#4E4670] sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{post.comment}</span>
-                      <div className='w-full flex pt-4 min-[425px]:px-4 px-2 min-[425px]:text-base text-sm '>
-                        <span className=''>{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('dd')} {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('LLLL')} {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('yy')}</span>
-                        <span className='flex-1 text-right'>{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('HH')}:{DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('mm')}</span>
-                      </div>
-                    </div>
-                    {/* Bottom */}
-                    {post.gift.name == 'cowswiss' && <CowSwissBottom style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }}/>}
-                    {post.gift.name == 'tapir' && <TapirBottom style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black'
-                    }}/>}
-                    {post.gift.name == 'banana' && <BananaBottom style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black',
-                    }}/>}
-                    {post.gift.name == 'hamham' && <HamhamBottom style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black',
-                    }}/>}
-                    {post.gift.name == 'heart' && <HeartBottom style={{
-                      color : post.gift?.bgColorCode ? post.gift?.bgColorCode : 'white',
-                      borderColor : post.gift.borderColor ? post.gift.borderColor : 'black',
-                    }}/>}
-                    {/* Count */}
-                    <div className='
-                      absolute
-                      min-[425px]:bottom-0
-                      -bottom-4
-                      min-[425px]:right-14
-                      right-10
-                      -rotate-12
-                      translate-x-[50%]
-                      z-[1]
-                      min-[425px]:scale-100
-                      scale-[70%]  
-                    '>
-                      {post.gift.name == 'banana' && <img className='w-24' src='/img/count/bananaTextbox4.png'/>}
-                      {post.gift.name == 'cowswiss' && <img className='w-24' src='/img/count/CowTextbox4.png'/>}
-                      {post.gift.name == 'tapir' && <img className='w-24' src='/img/count/TapirTextbox4.png'/>}
-                      {post.gift.name == 'hamham' && <img className='w-24' src='/img/count/HamHamTextbox4.png'/>}
-                      {post.gift.name == 'heart' && <img className='w-24' src='/img/count/heartTextbox4.png'/>}
-                      <div className='text-[#524973] absolute left-[36px] top-12 text-xl font-bold'>{postData.total - index}</div>
-                    </div>
-                </div>
+               <div className={`rounded-md justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] text-black/50`} >
+                <WishCard data={post} onOpenModal={
+                () => {
+                  console.log(`checked ${index}`)
+                  setModalDataIndex(index)
+                  setOpenModal(true)
+                }
+              } /></div>
               </Grow>
             ))}
           </InfiniteScroll>
         </div>}
-        { postIsLoading && <div className="w-full h-fit p-8 flex justify-center">
+        { wishPostIsLoading && <div className="w-full h-fit p-8 flex justify-center">
           <CircularProgress className='' />
         </div>}
-        { postError && (!postIsLoading || !postIsValidating) && <div className="w-full h-fit p-8 flex flex-col items-center gap-2">
+        { wishPostError && (!wishPostIsLoading || !wishPostIsValidating) && <div className="w-full h-fit p-8 flex flex-col items-center gap-2">
           เกิดความผิดพลาดในระบบ กรุณาลองใหม่
-          <Button onClick={() => postMutatee()} variant="outlined" className={`w-fit text-[22px] bg-[#E4CFFF] text-[#4E4670] rounded-[55px] ${alegreya.className} normal-case px-[22px] py-[12px] min-h-0 leading-none border-2 border-[#4E4670]`}>retry <RefreshIcon/></Button>
+          <Button onClick={() => postMutate()} variant="outlined" className={`w-fit text-[22px] bg-[#E4CFFF] text-[#4E4670] rounded-[55px] ${alegreya.className} normal-case px-[22px] py-[12px] min-h-0 leading-none border-2 border-[#4E4670]`}>retry <RefreshIcon/></Button>
         </div>}
       </div>
       {/*headbar ช่องทางติดตาม

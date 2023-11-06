@@ -46,14 +46,13 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
     //min-[341px]:py-4
     //onSubmit={handleSubmit(onSubmit)}w
     return (
-        <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl px-4 mx-4 sm:mx-16 md:mx-auto pt-4 pb-8 items-center h-full justify-center">
+        <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="bg-[#FDA172] w-auto md:w-[640px] rounded-2xl mx-4 sm:mx-16 md:mx-auto p-8 items-center h-full justify-center">
             <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-xl font-semibold leading-7 justify-center">อวยพรวันเกิด</h2>
+                <div className="border-b border-gray-900/10 pb-8">
                     {/* <p className="mt-1 text-sm leading-6 text-white">This information will be displayed publicly so be careful what you share.</p> */}
-                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div className="sm:col-span-4">
-                            <label htmlFor="sender" className="block text-sm font-medium leading-6 text-gray-900">จาก</label>
+                            <label htmlFor="sender" className="block text-2xl font-medium leading-6 text-gray-900 font-semibold">จาก</label>
                             <div className="mt-2">
                                 <div className="flex rounded-md ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-gray-200 sm:max-w-md">
                                     <input type="text" id="sender"
@@ -70,7 +69,7 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                         </div>
 
                         <div className="col-span-full">
-                            <label htmlFor="wishing" className="block text-sm font-medium leading-6 text-gray-900">คำอวยพร</label>
+                            <label htmlFor="wishing" className="block text-2xl font-medium leading-6 text-gray-900 font-semibold">คำอวยพร</label>
                             <div className="mt-2">
                                 <textarea id="wishing_message" 
                                     {...register("wishMessage", { required: "\"นี่กะจะไม่เขียนอะไรเลยหรอห้ะ\" - คัมภีร์ไม่ได้กล่าว", })}
@@ -88,9 +87,9 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
 
                         <div className="col-span-full">
                             <fieldset >
-                                <legend className="text-sm font-semibold leading-6 text-gray-900 flex">เลือกลายการ์ด</legend>
+                                <legend className="text-2xl font-semibold leading-6 text-gray-900 flex">เลือกลายการ์ด</legend>
 
-                                <div className="mt-2 space-x-12 flex">
+                                <div className="mt-4 space-x-12 flex">
                                     <div className="flex items-center gap-x-3">
                                         <input
                                             id="push-everything"
@@ -100,7 +99,7 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                                             type="radio"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-everything" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="push-everything" className="block text-xl font-medium leading-6 text-gray-900">
                                             แพะส้ม
                                         </label>
                                     </div>
@@ -112,7 +111,7 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                                             value="withSage"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="push-email" className="block text-xl font-medium leading-6 text-gray-900">
                                             น้ามา
                                         </label>
                                     </div>
@@ -124,7 +123,7 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                                             value="bikini"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="push-nothing" className="block text-xl font-medium leading-6 text-gray-900">
                                             บิกินี่
                                         </label>
                                     </div>
@@ -170,7 +169,7 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                         <input id="consent" {...register("isConsentPublish", {required: "กรุณายินยอมให้เผยแพร่ด้วยนะคร้าบบบบบ"})} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange"></input>
                     </div>
                     <div className="text-sm">
-                        <label htmlFor="consent"  className="font-medium text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
+                        <label htmlFor="consent"  className="font-medium text-lg text-gray-900">ยินยอมให้เผยแพร่คำอวยพรนี้สู่สาธารณะ</label>
                         {/* <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p> */}
                     </div>
                    
@@ -181,13 +180,14 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                         render={({ message }) => <p className="text-[#b90e0a] mt-2"><Emoji symbol="🙏" ></Emoji> {message}</p>}
                     />
                 </div>
-                <div className="flex items-center gap-x-6">
-                    <button type="reset" className="text-sm font-semibold leading-6 text-gray-900">เคลียร์ฟอร์ม</button>
-                    <button type="submit" 
-                    className="rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">ส่งคำอวยพร</button>
-                </div>
                
-            </div>
+               
+            </div> 
+            <div className="flex items-center gap-x-6 mt-8 justify-end">
+                    <button type="reset" className="text-xl font-semibold leading-6 text-gray-900">เคลียร์ฟอร์ม</button>
+                    <button type="submit" 
+                    className="rounded-md bg-orange-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">ส่งคำอวยพร</button>
+                </div>
         </form>
     )
 }

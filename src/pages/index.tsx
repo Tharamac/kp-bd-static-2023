@@ -32,6 +32,7 @@ import Banner from './banner';
 import WishCardModal from './modal-carousel';
 import { getStyle } from '@/models/card-pattern';
 import WishCard from './wish-card';
+import WishCardModalCarousel from './modal-carousel';
 
 //
 
@@ -48,7 +49,9 @@ export default function Page() {
   const pageSize = 10
   const swapTime = 5
   const [open, setOpenModal] = useState(false) // open modal
+  
   const [modalData, setModalData] = useState<WishEntry>() // show  modal data
+  const [dataIndex, setModalDataIndex] = useState<number>(0) // show  modal data ind
   const [page, setPage] = useState(1)
   const [dimensions, setDimensions] = useState({
     width: 0,
@@ -241,7 +244,7 @@ export default function Page() {
    {/* แบนเนอร์หลัก */}
           {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
   
-        <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
+        {/* <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
           <IconButton disableRipple className='hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
             <div className='p-0 w-full h-full flex items-center justify-start'>
               <LeftNav className='md:w-16 md:h-16 min-[425px]:w-12 w-10 min-[425px]:h-12 h-10 z-[1] rotate-180'/>
@@ -266,18 +269,34 @@ export default function Page() {
               )} 
             </SwiperSlide> )}
           </Swiper>
-        </div>
+        </div> */}
         
 
-        <WishCardModal data={modalData} dimensions={dimensions} open={open} handleClose={
+      
+        <WishCardModalCarousel data={wishData?.data[dataIndex]!} order={{
+          current: dataIndex,
+          total : wishData?.total as number
+        }}  onChangeIndex={
+          (add) => {
+            const length = wishData?.total as number
+            const nextIndex = dataIndex + add
+            if(nextIndex >= length)
+              setModalDataIndex(0)
+            else if (nextIndex < 0)
+            setModalDataIndex(length - 1)
+            else setModalDataIndex(nextIndex)
+          }
+      }
+        
+          open={open} handleClose={
           () => {
-            setModalData(undefined)
-            setOpenModal(false)
+            setOpenModal(false)        
           }
           }/>
         {wishData?.data.map((post, index) => <WishCard key={post.id} data={post} onOpenModal={
           () => {
-            setModalData(post)
+            console.log(`checked ${index}`)
+            setModalDataIndex(index)
             setOpenModal(true)
           }
         }/>

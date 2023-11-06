@@ -2,8 +2,8 @@ import { LeftNav } from "@/svg/LeftNav"
 import { Box, IconButton, Link, Typography, makeStyles } from "@mui/material"
 import { JSXElementConstructor, PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal, useRef } from "react"
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react"
-import Carousel from 'react-material-ui-carousel'
-// import { Carousel } from "@material-tailwind/react";
+// import Carousel from 'react-material-ui-carousel'
+import { Carousel } from "@material-tailwind/react";
 import { Paper, Button } from '@mui/material'
 import WishFullCard from "./wish-modal-card"
 import { CardPattern, getStyle } from "@/models/card-pattern"
@@ -104,13 +104,15 @@ export default function Banner({dimensions}: {dimensions: Dimension}) {
     return (
 
 
-      <div 
-      // className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[1400px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}
-      >
-        <Carousel autoPlay={false} animation="slide"  indicators={false} className="w-full h-full"
+      // <div 
+      // // className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[1400px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}
+      // >
+        <Carousel 
+        // autoPlay={false} animation="slide"  indicators={false} className="w-full h-full"
         >
+     
             {
-                items.map( (item, i) => <WishFullCard key={"edfewdsdf"} data={
+                items.map( (item, i) =>     <div className="relative h-full w-full"><WishFullCard key={"edfewdsdf"} data={
                   new WishEntry(
                   {  
                     id: "hyuguygugyyug",
@@ -119,10 +121,11 @@ export default function Banner({dimensions}: {dimensions: Dimension}) {
                     pattern: CardPattern.bikini,
                     createdDate: DateTime.now()
                   })
-                }/> )
+                }/>     </div>)
             }
+        
         </Carousel>
-  </div>
+  // </div>
     )
     // return (
 

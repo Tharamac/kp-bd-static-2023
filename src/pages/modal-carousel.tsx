@@ -1,11 +1,12 @@
 import { Fragment, useRef, useState } from 'react'
 // import { Dialog, Transition } from '@headlessui/react'
-
 import React from "react";
 import { Modal, Button, Box, Typography, Dialog, DialogContent, makeStyles, DialogContentText, DialogTitle, DialogActions } from '@mui/material'
 import Banner, { Dimension } from './banner';
 import { WishEntry } from '@/models/wish-entry';
 import WishFullCard from './wish-modal-card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 // import {
 //   Button,
 //   Dialog,
@@ -45,17 +46,45 @@ const style = {
   //   }
   // }));
      
-export default function WishCardModal({data, dimensions, open, handleClose}: {data?: WishEntry, dimensions: Dimension, open:boolean, handleClose: () => void}) {
+export default function WishCardModalCarousel({data, order, onChangeIndex, open, handleClose}: {data: WishEntry, order: {current: number, total:number}, onChangeIndex: (add:number) => void , open: boolean, handleClose: () => void}) {
+  // if(index >= dataset.length)
+  //   setCurrentIndex(0)
+  // else if (index < 0)
+  //   setCurrentIndex(dataset.length - 1)
+  // var data = data.at(initialIndex)
+  // console.log(initialIndex)
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Dialog
         open={open}
+        fullWidth={true}
+        maxWidth='lg'
+        style={{backgroundColor: 'transparent'}}
         onClose={handleClose}
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
+        // slotProps.backdrop={{ style: { backgroundColor: "transparent" } }}
+     
       >
-            <WishFullCard key={data?.id} data={data}></WishFullCard>
+            <div className="flex justify-center h-[30px] bg-transparent"></div>
+
+            <div className='flex flex-row'>
+            <Button className='bg-transparent' onClick={
+              () => onChangeIndex(-1)
+            }
+               
+            ><FontAwesomeIcon className="text-[24px] text-[#FF8C00] aspect-square"  icon={faChevronLeft} /></Button>
+           
+            <WishFullCard key={data?.id} data={data}></WishFullCard> 
+            {/* <b className='absolute top-0 right-0 text-[30px]'>{order.current+1}/{order.total}</b> */}
+            <Button onClick={ () => {
+               onChangeIndex(1)
+            }
+               
+            }><FontAwesomeIcon className="text-[24px] text-[#FF8C00] aspect-square"  icon={faChevronRight} /></Button>
+            </div>
+            <div className="flex justify-center bg-transparent pr-4" style={{backgroundColor: 'transparent'}}><b className='text-[30px]'>{order.current+1}/{order.total}</b></div>
                {/* <Banner dimensions={dimensions}></Banner>  */}
         {/* <DialogTitle id="alert-dialog-title">
           {"Use Google's location service?"}

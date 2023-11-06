@@ -1,12 +1,14 @@
 import { CardPattern, getStyle } from "@/models/card-pattern";
 import { WishEntry } from "@/models/wish-entry";
+import { ReactNode } from "react";
 
-export default function WishFullCard({data}: {data?: WishEntry}){
+export default function WishFullCard({data}: {data?: WishEntry},){
     const style = getStyle(data?.pattern);
     
     return (
       <div 
-      className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[1400px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
+      className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-m-[600px] w-full max-w-[1400px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
+        
         <div className='flex w-full flex-col px-4 py-2  top-0 left-0'>
           <div className='flex'>
             {<img src={style.headerImageSource} className='h-[80px] object-contain'/>} 
@@ -24,6 +26,9 @@ export default function WishFullCard({data}: {data?: WishEntry}){
         
           </div>
         </div>
+        {/* <div>{children}</div> */}
+    
+        {/* <b className='absolute top-0 right-0 text-[30px]'>{order.current+1}/{order.total}</b> */}
       </div>
 
     )

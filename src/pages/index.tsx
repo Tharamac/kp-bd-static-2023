@@ -266,6 +266,10 @@ export default function Page() {
             }
           } />
 
+        {/* <Marquee speed={160}> */}
+            <div className='w-full h-[100px] flex flex-row gap-2 text-black top-0 z-[1] m-2 text-[60px] text-black justify-center items-center font-semibold'>Kamอวยพรทั้งหมด <Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji></div>
+        {/* </Marquee> */}
+
         {!wishPostError && !wishPostIsLoading && <div className='w-full container '>
           <InfiniteScroll
             dataLength={pageSize*page < (wishData?.total as number) ? pageSize*page : (wishData?.total as number)} //This is important field to render the next data

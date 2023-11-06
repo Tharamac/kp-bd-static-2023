@@ -4,12 +4,13 @@ import { MouseEventHandler } from "react";
 
 export default function WishCard({data, onOpenModal}: {data: WishEntry, onOpenModal?: () => void}){
     const style = getStyle(data.pattern);
+    console.log(style.backgroundColor);
     return (
       <div 
        onClick={
         onOpenModal
        }
-      className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
+      className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] min-[425px] text-black/50 bg-[#FDF4DC] border-[20px] border-[#EC975F]`}>
         <div className='flex w-full flex-col px-4 py-2  top-0 left-0'>
           <div className='flex'>
             {<img src={style.headerImageSource} className='h-[80px] object-contain'/>} 

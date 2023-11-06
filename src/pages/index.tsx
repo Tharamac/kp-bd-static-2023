@@ -33,7 +33,8 @@ import WishCardModal from './modal-carousel';
 import { getStyle } from '@/models/card-pattern';
 import WishCard from './wish-card';
 import WishCardModalCarousel from './modal-carousel';
-
+import Emoji from '@/component.tsx/emoji';
+import Marquee from "react-fast-marquee";
 //
 
 const oldStandard = Old_Standard_TT({ weight : '400', subsets : ['latin'] })
@@ -213,7 +214,7 @@ export default function Page() {
   return (
     <div className='flex flex-col w-full items-center'>
       <div className={`flex flex-col min-h-screen w-full overflow-x-hidden z-[1] pt-6 pb-16 gap-4 text-[#000000] items-center`}>
-        <div className='flex flex-col w-full items-center relative'>
+        <div className='flex flex-col w-full items-center relative bg-[#F7C6AF]'>
           {/*แอนิเมชั่้นตาคุณบากุ*/}
           {/*
           <div className='hover:cursor-pointer' onClick={() => {setOpenEye(!openEye)}}>
@@ -225,24 +226,31 @@ export default function Page() {
             </div>
           </div>
             {/* ตัวอักษร */}
-
-        <div className='w-full h-fit flex flex-row gap-2  top-0 bg-[#FA8128] z-[1] p-2 text-white justify-center items-center'></div>
-          <div className='relative w-full sm:h-[150px] min-[500px]:h-[130px] min-[425px]:h-[100px] h-[80px]'>
-            <Fade in={true} className='text-center absolute -translate-x-[50%] left-[50%] flex flex-col w-full h-fit'>
+          <img className='top-0 left-[50% -translate-x-[50%]] md:mt-5 mt-12 w-auto max-h-[400px]' src='/img/banner/banner-transparent.gif'/>
+             </div> 
+        <Marquee speed={160}>
+           <div className='w-full h-fit flex flex-row gap-2 text-black top-0 z-[1] p-2 text-[60px] text-black justify-center items-center'><b>อวยพรคัมภีร์ได้ที่นี่ <Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji></b></div>
+        </Marquee>
+       
+       {/*   <div className='relative w-full sm:h-[150px] min-[500px]:h-[130px] min-[425px]:h-[100px] h-[80px]'>
+             <Fade in={true} className='text-center absolute -translate-x-[50%] left-[50%] flex flex-col w-full h-fit'>
               <h1 className=''>
+              
                 <span className={`${mali.className} sm:text-[58px] min-[500px]:text-[48px] min-[425px]:text-[40px] text-[30px]`}>Happy 24th birthday, คัมภีร์!</span>
                 <span className={`${mali.className} sm:text-3xl min-[500px]:text-2xl min-[425px]:text-xl text-base`}>November 29th, 2023</span>
               </h1>
-            </Fade>
-          </div>
+            </Fade> 
+          </div>*/}
        
-        </div> 
+  
+
+      
         <div className='w-full'>
           <Form mutateFunction={postMutate}></Form>
         </div>
 
    {/* แบนเนอร์หลัก */}
-          {/*<img className='absolute min-w-[1046px] top-0 left-[50% -translate-x-[50%]] -z-[2]' src='/img/WebHBDBaku.png'/>*/}
+         
   
         {/* <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
           <IconButton disableRipple className='hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
@@ -455,7 +463,7 @@ export default function Page() {
         </Link>
         <Divider className="bg-white" orientation="vertical" flexItem />
         <div className='h-full justify-center items-center flex sm:flex-row flex-col min-[341px]:flex-none flex-1 sm:gap-2'>
-          <span className="sm:text-base text-xs text-center">ติดตาม<b className='underline'>Kamphee SoAlone</b>ได้แล้วที่</span>
+          <span className="sm:text-base text-xs text-center">ติดตาม <b className='underline'>Kamphee SoAlone</b> ได้แล้วที่</span>
           <div className='min-[341px]:flex grid grid-cols-3 min-[341px]:gap-2'>
          
             <Link className='flex items-center' href={"https://t.co/nCV3vocXPv"} target="_blank">

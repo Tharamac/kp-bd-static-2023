@@ -13,6 +13,7 @@ const theme = createTheme({
       // // pop: ["pop","sans"], 
     
   },
+  
   breakpoints: {
     values: {
       xs: 0,
@@ -66,7 +67,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       
         </Head>
         <main className='w-full h-full flex flex-col items-center'>
-          <div className='-z-[1] fixed top-0 left-0 w-full h-screen bg-[#EFEFEF]'/>
+          <div className='-z-[1] fixed top-0 left-0 w-full h-screen bg-[#ffd9c7]'/>
           <Component {...pageProps} />
         </main>
       </ThemeProvider>

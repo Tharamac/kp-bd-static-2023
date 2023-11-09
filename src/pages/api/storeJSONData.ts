@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fsPromises from 'fs/promises';
 import path from "path";
 
-const dataFilePath = path.join(process.cwd(), 'public/data.json');
+const dataFilePath = path.join(process.cwd(), '/data.json');
 export async function handler(req: NextApiRequest, res: NextApiResponse) {
     // res.status(200).json({ name: 'John Doe' })
     if (req.method === 'GET') {

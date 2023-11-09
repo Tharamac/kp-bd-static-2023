@@ -14,10 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }else if (req.method === 'POST') {
       try {
         // Read the existing data from the JSON file 
-        console.log(dataFilePath) 
+
  
         const jsonData = await fsPromises.readFile(dataFilePath);       
-        console.log(jsonData);
         const objectData = JSON.parse(jsonData.toString());
         console.log(objectData);
         // Get the data from the request body
@@ -25,11 +24,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log(req.body);
         // Add the new data to the object
         const newData = {
-          id,
-          sender,
-          message,
-          pattern,
-          createdDate,
+          id:id,
+          sender:sender,
+          message:message,
+          pattern:pattern,
+          createdDate:createdDate,
         };
         console.log(newData);
         objectData["data"].push(newData);

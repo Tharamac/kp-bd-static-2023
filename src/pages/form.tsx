@@ -1,8 +1,8 @@
-import { CardPattern, WishEntry } from "@/models/wish-entry";
-import { Button, CircularProgress, Divider} from '@mui/material'
+import { CardPattern, WishEntry } from "../modules/wish-entry";
 import { useForm, SubmitHandler, UseFormSetError, SubmitErrorHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import Emoji from "@/component.tsx/emoji";
+import Emoji from "@/component/emoji";
+
 
 export type Inputs = {
     senderName: string,
@@ -12,13 +12,7 @@ export type Inputs = {
 };
 
 export default function Form({mutateFunction}: {mutateFunction: Function}) {
- 
 
-    const fetchData = async () => {
-        const response = await fetch('/api/storeJSONData')
-        const data = await response.json();
-        console.log(data);
-    }
 
     const saveData = async (entry: WishEntry, postMutate: Function) => {
         const response = await fetch('/api/storeJSONData', {

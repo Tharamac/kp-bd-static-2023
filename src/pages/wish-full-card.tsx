@@ -1,13 +1,16 @@
-import { CardPattern, getStyle } from "@/models/card-pattern";
-import { WishEntry } from "@/models/wish-entry";
-import { ReactNode } from "react";
+import { getStyle } from "../modules/card-pattern";
+import { WishEntry } from "../modules/wish-entry";
 
 export default function WishFullCard({data}: {data?: WishEntry},){
     const style = getStyle(data?.pattern);
     
     return (
-      <div 
-      className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-m-[600px] w-full max-w-[1400px] min-[425px] text-black/50 bg-[${style.backgroundColor}] border-[20px] border-[${style.borderColor}]`}>
+      <div        
+      style={{
+        backgroundColor: style.backgroundColor,
+        borderColor: style.borderColor
+       }}
+      className={`rounded-none justify-self-center flex-col relative overflow-hidden flex h-m-[600px] w-full max-w-[1400px] min-[425px] text-black/50  border-[20px] `}>
         
         <div className='flex w-full flex-col px-4 py-2  top-0 left-0'>
           <div className='flex'>

@@ -11,29 +11,13 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTiktok, faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { Logo } from '@/svg/Logo';
-
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { LeftNav } from '@/svg/LeftNav';
-import { BadgeBody } from '@/svg/badge/body';
-import { CowSwissBottom } from '@/svg/badge/bottom/cowswiss';
-import { CowSwissTop } from '@/svg/badge/top/cowswiss';
-import { TapirTop } from '@/svg/badge/top/tapir';
-import { TapirBottom } from '@/svg/badge/bottom/tapir';
-import { BananaTop } from '@/svg/badge/top/banana';
-import { BananaBottom } from '@/svg/badge/bottom/banana';
-import { HamhamTop } from '@/svg/badge/top/hamham';
-import { HamhamBottom } from '@/svg/badge/bottom/hamham';
-import { HeartTop } from '@/svg/badge/top/heart';
-import { HeartBottom } from '@/svg/badge/bottom/heart';
 import Form from './form';
-import { CardPattern, WishEntry, WishEntryDto } from '@/models/wish-entry';
-import Banner from './banner';
-import WishCardModal from './modal-carousel';
-import { getStyle } from '@/models/card-pattern';
+import { CardPattern, WishEntry, WishEntryDto } from '../modules/wish-entry';
 import WishCard from './wish-card';
 import WishCardModalCarousel from './modal-carousel';
-import Emoji from '@/component.tsx/emoji';
+import Emoji from '@/component/emoji';
 import Marquee from "react-fast-marquee";
 //
 
@@ -288,7 +272,6 @@ export default function Page() {
                <div className={`rounded-md justify-self-center flex-col relative overflow-hidden flex h-full w-full max-w-[425px] text-black/50`} >
                 <WishCard data={post} onOpenModal={
                 () => {
-                  console.log(`checked ${index}`)
                   setModalDataIndex(index)
                   setOpenModal(true)
                 }

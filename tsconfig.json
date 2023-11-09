@@ -30,7 +30,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/component", "src/component"  ],
   "exclude": [
     "node_modules"
   ]

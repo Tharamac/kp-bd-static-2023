@@ -1,7 +1,8 @@
 import { Inputs } from "@/pages/form";
-import { CardPattern, cardPatternMatch } from "./card-pattern";
+
 import {v4 as uuidv4} from 'uuid';
 import { DateTime } from 'luxon';
+import { CardPattern, cardPatternMatch } from "./card-pattern";
 
 
 interface WishEntryParam {
@@ -12,7 +13,7 @@ interface WishEntryParam {
     createdDate: DateTime,
 }
 
-type WishEntryDto = {
+export type WishEntryDto = {
     id: string
     sender: string, 
     message: string, 
@@ -58,6 +59,5 @@ class WishEntry{
     }
 }
 
-export { WishEntry, CardPattern };
-export type { WishEntryDto };
+export { WishEntry, CardPattern};
  

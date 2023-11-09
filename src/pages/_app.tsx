@@ -44,24 +44,25 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
+    // แก้ตรงนี้ด้วย 
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Head> 
-          <title>KP's Birthday | 9 August</title>
-          <meta name="title" content="KP's Birthday | 9 August" />
+          <title>KP's Birthday | November 29th</title>
+          <meta name="title" content="KP's Birthday | November 29th" />
           <meta name="description" content={`${process.env.NEXT_PUBLIC_DESCRIPTION}`} />
 
           <meta property="og:type" content="website" />
           <meta property="og:url" content={`${process.env.NEXT_PUBLIC_BASE_PATH}`} />
-          <meta property="og:title" content="KP's Birthday | 9 August" />
-          <meta property="og:description" content={`เว็บไซด์สำหรับข่าวสารคาเฟ่วันเกิด และ การอวยพรพรวันเกิดคุณบากุ Vtuber แห่งบ้าน ARP โดยเหล่า "ผู้ฝันใฝ่แปลว่าอิสระ"`} />
-          <meta property="og:image" content={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/baku-og.png`} />
+          <meta property="og:title" content="KP's Birthday | November 29th" />
+          <meta property="og:description" content={`เว็บไซต์อวยพรพรวันเกิดของ Kamphee จากเหล่าแพะส้ม`} />
+          <meta property="og:image" content={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/main_page.png`} />
 
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content={`${process.env.NEXT_PUBLIC_BASE_PATH}`} />
-          <meta property="twitter:title" content="BAKU's Birthday | 9 August" />
-          <meta property="twitter:description" content={`เว็บไซด์สำหรับข่าวสารคาเฟ่วันเกิด และ การอวยพรพรวันเกิดคุณบากุ Vtuber แห่งบ้าน ARP โดยเหล่า "ผู้ฝันใฝ่แปลว่าอิสระ"`} />
-          <meta property="twitter:image" content={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/baku-og.png`} />
+          <meta property="twitter:title" content="BAKU's Birthday | November 29th" />
+          <meta property="twitter:description" content={`เว็บไซต์อวยพรพรวันเกิดของ Kamphee จากเหล่าแพะส้ม`} />
+          <meta property="twitter:image" content={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/main_page.png`} />
 
           <meta name="robots" content="all" />
       

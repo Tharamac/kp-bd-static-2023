@@ -13,8 +13,10 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json(objectData);
     }else if (req.method === 'POST') {
       try {
-        // Read the existing data from the JSON file
-        const jsonData = await fsPromises.readFile(dataFilePath);
+        // Read the existing data from the JSON file  
+ 
+        const jsonData = await fsPromises.readFile(dataFilePath);       
+        console.log(jsonData);
         const objectData = JSON.parse(jsonData.toString());
         console.log(objectData);
         // Get the data from the request body

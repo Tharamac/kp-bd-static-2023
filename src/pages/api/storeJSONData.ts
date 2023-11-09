@@ -3,7 +3,7 @@ import fsPromises from 'fs/promises';
 import path from "path";
 
 const dataFilePath = path.join(process.cwd(), 'public/data.json');
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function handler(req: NextApiRequest, res: NextApiResponse) {
     // res.status(200).json({ name: 'John Doe' })
     if (req.method === 'GET') {
       // Read the existing data from the JSON file

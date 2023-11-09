@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fsPromises from 'fs/promises';
 import path from "path";
 
-const dataFilePath = path.join(process.cwd(), '/tmp/data.json');
+const dataFilePath = path.join(process.cwd(), '/public/data.json');
+const tempFilePath = path.join(process.cwd(), '/tmp/data.json');
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // res.status(200).json({ name: 'John Doe' })
     if (req.method === 'GET') {
@@ -41,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log(updatedData)
   
         // Write the updated data to the JSON file
-        await fsPromises.writeFile(dataFilePath, updatedData);
+        await fsPromises.writeFile(tempFilePath, updatedData);
   
         // Send a success response
         res.status(200).json({ message: 'Data stored successfully' });

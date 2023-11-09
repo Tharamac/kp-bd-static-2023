@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fsPromises from 'fs/promises';
 import path from "path";
 
-const dataFilePath = path.join(process.cwd(), 'public/data.json');
+const dataFilePath = path.join(process.cwd(), '/tmp/data.json');
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // res.status(200).json({ name: 'John Doe' })
     if (req.method === 'GET') {
@@ -23,15 +23,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const {id, sender, message, pattern, createdDate } = req.body;
         console.log(req.body);
         // Add the new data to the object
-        // const newData = {
-        //   id:id,
-        //   sender:sender,
-        //   message:message,
-        //   pattern:pattern,
-        //   createdDate:createdDate,
-        // };
-        // console.log(newData);
-        objectData["data"].push(req.body);
+        const newData = {
+          id:id,
+          sender:sender,
+          message:message,
+          pattern:pattern,
+          createdDate:createdDate,
+        };
+        console.log(newData);
+        objectData["data"].push(newData);
         const count = (objectData["data"] as Array<any>).length
         objectData["total"] = count;
         

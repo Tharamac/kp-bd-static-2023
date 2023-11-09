@@ -23,21 +23,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const {id, sender, message, pattern, createdDate } = req.body;
         console.log(req.body);
         // Add the new data to the object
-        const newData = {
-          id:id,
-          sender:sender,
-          message:message,
-          pattern:pattern,
-          createdDate:createdDate,
-        };
-        console.log(newData);
-        objectData["data"].push(newData);
+        // const newData = {
+        //   id:id,
+        //   sender:sender,
+        //   message:message,
+        //   pattern:pattern,
+        //   createdDate:createdDate,
+        // };
+        // console.log(newData);
+        objectData["data"].push(req.body);
         const count = (objectData["data"] as Array<any>).length
         objectData["total"] = count;
         
   
         // Convert the object back to a JSON string
         const updatedData = JSON.stringify(objectData);
+        console.log(updatedData)
   
         // Write the updated data to the JSON file
         await fsPromises.writeFile(dataFilePath, updatedData);

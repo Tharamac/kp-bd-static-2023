@@ -44,7 +44,8 @@ export default function Page500() {
                 <span className="text-xl">ผู้ฝันใฝ่แปลว่าอิสระ</span>
             </Link>
         </div>
-        <YouTube
+  
+        {/* <YouTube
             className="video-container absolute blur-sm brightness-[25%]"
             videoId="2a0UlszZwQI"
             opts={{
@@ -57,6 +58,6 @@ export default function Page500() {
                 },
             }}
             iframeClassName="ifreamYoutube"
-        />
+        /> */}
     </div>
 }

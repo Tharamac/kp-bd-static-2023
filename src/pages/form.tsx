@@ -15,11 +15,12 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
 
 
     const saveData = async (entry: WishEntry, postMutate: Function) => {
+        console.log(JSON.stringify(entry))
         const response = await fetch('/api/storeJSONData', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            // headers: {
+            //   'Content-Type': 'application/json'
+            // },
             body: JSON.stringify(entry)
           });
         const data = await response.json();     

@@ -5,58 +5,55 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from "next/link";
 import { Divider } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faFacebook, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { Logo } from "@/svg/Logo";
 
 export default function Page404() {
-    return <div className="flex flex-col relative w-full h-screen justify-center items-center overflow-hidden gap-4">
-        <div className="text-white text-4xl z-10 w-full text-center">ขออภัย คุณไม่พบหน้าอะไร...นอกจากคุณ<b className='text-[#ab98ff] underline'>คุณบากุ</b></div>
-        <div className="flex gap-2 text-white z-10 items-center">
-            <span className="text-4xl">ติดตาม<b className='text-[#ab98ff] underline'>คุณบากุ</b>ได้แล้ววันนี้ ที่</span>
-            <Link href={"https://algorhythm.realic.net/members/illusion/baku"} target="_blank">
-                <img src="/img/logo_arp.png" className="w-[60px]"/>
-            </Link>
-            <Link href={"https://www.youtube.com/@Baku_ARP"} target="_blank">
-                <YouTubeIcon className="text-6xl"/>
-            </Link>
-            <Link href={"https://twitter.com/Baku_ARP"} target="_blank">
-                <TwitterIcon className="text-6xl"/>
-            </Link>
-            <Link href={"https://www.facebook.com/Baku.ARP"} target="_blank">
-                <FontAwesomeIcon className="text-[44px] mt-2 mr-2" icon={faFacebook} />
-            </Link>
-            <Link href={"https://www.tiktok.com/@baku_arp"} target="_blank">
-                <FontAwesomeIcon className="text-[44px] mt-2" icon={faTiktok} />
-            </Link>
-            <div className="px-0.5"/>
-            <Link href={"https://vtuberthaiinfo.com/talent/baku_arp"} target="_blank">
-                <Logo className="w-[50px] h-[50px] pt-2"/>
-            </Link>
-        </div>
-        <div className="flex gap-2 text-white z-10">
-            <Link className="flex flex-row items-center gap-1" href={"/"}>
-                <HomeIcon className="text-2xl"/>
-                <span className="text-xl">หน้าอวยพรวันเกิด<b className='text-[#ab98ff] underline'>คุณบากุ</b></span>
-            </Link>
-            <Divider className="bg-white" orientation="vertical" flexItem />
-            <Link className="flex flex-row items-center gap-1" href={"https://twitter.com/Dreamerism89"} target="_blank">
-                <TwitterIcon className="text-2xl"/>
-                <span className="text-xl">ผู้ฝันใฝ่แปลว่าอิสระ</span>
-            </Link>
-        </div>
-        <YouTube
-            className="video-container absolute blur-sm brightness-[25%]"
-            videoId="2a0UlszZwQI"
-            opts={{
-                playerVars: {
-                    autoplay: 1,
-                    mute: 1,
-                    controls: 0,
-                    loop: 1,
-                    playlist: '2a0UlszZwQI',
-                },
-            }}
-            iframeClassName="ifreamYoutube"
-        />
+    return <div className="flex flex-col relative w-full h-screen justify-center items-center overflow-hidden gap-4 bg-[#ed9453]">
+        <div className="text-black text-4xl z-10 w-full text-center">หาหน้าเว็บไม่เจอสินะ ไม่เป็นไร! เรามาลองใหม่อีกครั้ง แต่ดู <b className='text-[#ffd3b3] underline'>คัมภีร์บิกินี่</b>ก่อนเพื่อความเป็นสิริมงคล //แปะรูปเคพีบิกินี่ </div>
+            <div className="flex gap-8 grid grid-col justify-left text-white z-10 items-center">
+                <Link className="flex flex-row items-center gap-1" href={"/"}>
+                    <HomeIcon className="text-2xl"/>
+                    <span className="text-xl text-black"> <b>คุณอยากมาหน้านี้สินะ อวยพรคัมภีร์น่ะ</b></span>
+                </Link> 
+                
+                <div className='min-[341px]:flex grid min-[341px]:gap-2'>
+                    <span className="sm:text-base text-xl text-center text-black">ติดตาม <b className='underline'>Kamphee SoAlone</b> ได้แล้วที่</span>
+                    <Link className='flex items-center' href={"https://t.co/nCV3vocXPv"} target="_blank">
+                        <YouTubeIcon className="text-3xl"/>
+                    </Link>
+                    <Link className='flex items-center' href={"https://twitter.com/KampheeA"} target="_blank">
+                        <TwitterIcon className="text-3xl"/>
+                    </Link>
+                    {/* <Link className='flex items-center' href={"https://www.facebook.com/Baku.ARP"} target="_blank">
+                        <FontAwesomeIcon className="text-[24px] aspect-square" icon={faFacebook} />
+                    </Link>
+                    <Link className='flex items-center' href={"https://www.tiktok.com/@baku_arp"} target="_blank">
+                        <FontAwesomeIcon className="text-[24px] aspect-square" icon={faTiktok} />
+                    </Link> */}
+                    <Link className='flex items-center p-1' href={"https://vtuberthaiinfo.com/talent/kamphee"} target="_blank">
+                        <Logo className="w-[26px] h-[26px]"/>
+                    </Link>
+                    <Divider className="bg-white" orientation="vertical" flexItem />
+                    
+                 </div>
+                 <div className="flex gap-2">
+                   
+                    <Link className='flex min-[431px]:flex-row flex-col items-center gap-1' href={"https://twitter.com/Autumnia888"} target="_blank">
+                        <img src="img\autumniaent.jpg" className="w-[36px] rounded-full"/>
+                        <span className="sm:text-base text-xl text-center text-black"> <b>ติดตามค่าย Autumnia</b></span>
+                    </Link>
+                </div>
+                <div className="flex gap-2">
+                    {/* <Divider className="bg-white" orientation="vertical" flexItem /> */}
+                    <Link className="flex min-[431px]:flex-row flex-col items-center gap-1" href={"https://discord.gg/p2fY7N4Mcb"} target="_blank">
+                        <FontAwesomeIcon className="text-[24px] aspect-square" icon={faDiscord} />
+                        <span className="min-[431px]:text-xl text-xl text-black"> <b>ดิสคอร์ดแฟนคลับของคัมภีร์</b></span>
+                    </Link> 
+                
+                </div>
+            </div>
+            
+    
     </div>
 }

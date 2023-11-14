@@ -6,7 +6,7 @@ import { CardPattern, cardPatternMatch } from "./card-pattern";
 
 
 interface WishEntryParam {
-    id: string 
+    id: string | undefined
     senderName: string, 
     message: string, 
     pattern: CardPattern,
@@ -14,7 +14,7 @@ interface WishEntryParam {
 }
 
 export type WishEntryDto = {
-    id: string
+    _id: string
     sender: string, 
     message: string, 
     pattern: CardPattern,
@@ -23,7 +23,7 @@ export type WishEntryDto = {
 
 
 class WishEntry{
-    id?: string;
+    id: string | undefined;
     sender: string;
     message: string;
     pattern: CardPattern;
@@ -39,7 +39,7 @@ class WishEntry{
 
     public static fromInputs(entry: Inputs): WishEntry{
         return new WishEntry({
-            id: uuidv4(),
+            id: undefined,
             senderName: entry.senderName,
             message: entry.wishMessage,
             pattern: cardPatternMatch(entry.cardPattern),
@@ -49,7 +49,7 @@ class WishEntry{
 
     public static fromDto(entry: WishEntryDto): WishEntry{
         return new WishEntry({
-            id: entry.id,
+            id: entry._id,
             senderName: entry.sender,
             message: entry.message,
             pattern: cardPatternMatch(entry.pattern),

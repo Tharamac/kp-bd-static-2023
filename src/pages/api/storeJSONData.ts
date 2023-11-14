@@ -15,8 +15,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }else if (req.method === 'POST') {
       try {
         // Read the existing data from the JSON file 
-
- 
         const jsonData = await fsPromises.readFile(dataFilePath);       
         const objectData = JSON.parse(jsonData.toString());
         console.log(objectData);

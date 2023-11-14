@@ -26,6 +26,28 @@ const alegreya = Alegreya_Sans_SC({ weight : '400', subsets : ['latin'] })
 const mali = Mali({ weight : '400', subsets : ['latin'] })
 
 
+// export async function getServerSideProps() {
+//   let res = await fetch(, {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   let allPosts = await res.json();
+
+//   return {
+//     props: { allPosts },
+//   };
+// }
+
+// export const getServerSideProps = (async (context) => {
+//   const res = await fetch('https://api.github.com/repos/vercel/next.js')
+//   const repo = await res.json()
+//   return { props: { repo } }
+// }) satisfies GetServerSideProps<{
+//   repo: Repo
+// }>
+
 export default function Page() {
   //state variable with setState func
   const [lastSwap, setLastSwap] = useState<DateTime>(DateTime.now())
@@ -82,10 +104,11 @@ export default function Page() {
   const swiperRef = useRef<SwiperClass | null>(null);
 
 
-  const { data: wishData, error: wishPostError, isLoading: wishPostIsLoading, isValidating: wishPostIsValidating, mutate: postMutate } = useSWR(process.env.MONGODB_URI, async (url) => {
+  const { data: wishData, error: wishPostError, isLoading: wishPostIsLoading, isValidating: wishPostIsValidating, mutate: postMutate } = 
+    useSWR('/api/storeWishDB', async (url) => {
     setPage(0)
     const res = await fetch(url)
-    console.log(res);
+    console.log(await res.json);
     if(!res.ok){
         return {
             data : [],
@@ -95,11 +118,13 @@ export default function Page() {
     setPage(1)
    
     const result = await res.json() as {status: number, data: WishEntryDto[], total: number }
+    console.log(result);
     const wishingList: WishEntry[] = result.data.map((wish, index) => WishEntry.fromDto(wish))
     const postResult = {
       data: wishingList as WishEntry[],
       total: result.total
     }
+    console.log(postResult);
     return postResult
   },{
     revalidateOnMount : true,
@@ -110,16 +135,7 @@ export default function Page() {
     <div className='flex flex-col w-full items-center'>
       <div className={`flex flex-col min-h-screen w-full overflow-x-hidden z-[1] pt-6 pb-16 gap-4 text-[#000000] items-center`}>
         <div className='flex flex-col w-full items-center relative bg-[#F7C6AF]'>
-          {/*แอนิเมชั่้นตาคุณบากุ*/}
-          {/*
-          <div className='hover:cursor-pointer' onClick={() => {setOpenEye(!openEye)}}>
-            <div className={openEye ? '' : 'hidden'}>
-              <img className='hover:cursor-pointer min-[260px]:w-[260px] w-full' src={'/img/baku_head.png'} alt={'baku-bd-chibi'}/>
-            </div>
-            <div className={openEye ? 'hidden' : ''}>
-              <img className='hover:cursor-pointer min-[260px]:w-[260px] w-full' src={'/img/baku_head_open.png'} alt={'baku-bd-chibi'}/>
-            </div>
-          </div>
+     
             {/* ตัวอักษร */}
           <img className='top-0 left-[50% -translate-x-[50%]] md:mt-5 mt-12 w-auto max-h-[400px]' src='/img/banner/banner-transparent.gif'/>
              </div> 
@@ -143,39 +159,6 @@ export default function Page() {
         <div className='w-full'>
           <Form mutateFunction={postMutate}></Form>
         </div>
-
-   {/* แบนเนอร์หลัก */}
-         
-  
-        {/* <div className='min-[1901px]:w-full sm:w-[1900px] w-full relative'>
-          <IconButton disableRipple className='hover:bg-transparent absolute z-[2] text-white top-[50%] lg:right-[calc(50%-450px)] sm:right-[calc(50%-280px)] min-[425px]:right-[20px] right-[0px] p-0 -translate-y-[50%] translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slideNext()}>
-            <div className='p-0 w-full h-full flex items-center justify-start'>
-              <LeftNav className='md:w-16 md:h-16 min-[425px]:w-12 w-10 min-[425px]:h-12 h-10 z-[1] rotate-180'/>
-            </div>
-          </IconButton>
-          <IconButton disableRipple className=' hover:bg-transparent absolute z-[2] text-white top-[50%] lg:left-[calc(50%-450px)] sm:left-[calc(50%-280px)] min-[425px]:left-[20px] left-[0px] p-0 -translate-y-[50%] -translate-x-[50%] w-[100px] h-[100px]' onClick={() => swiperRef.current?.slidePrev()}>
-            <div className='p-0 w-full h-full flex items-center justify-end'>
-              <LeftNav className='md:w-16 md:h-16 min-[425px]:w-12 w-10 min-[425px]:h-12 h-10 z-[1]'/>
-            </div>
-          </IconButton>
-          <Swiper onSwiper={(swiper:SwiperClass) => { swiperRef.current = swiper }} slidesPerView={ dimensions.width >= 640 ? 3 : 1 } spaceBetween={0} centeredSlides={true}>
-            {banners.map( banner => <SwiperSlide key={banner.id} className='aspect-video '>
-              {({ isActive, isPrev, isNext }) => (
-                <div>
-                  { banner.url && <Link className={`${isActive ? '' : 'brightness-50'} ${(isPrev || isNext || isActive) ? 'opacity-100' : 'opacity-0'} transition`} href={banner.url} target='_blank'>
-                    <img src={banner.imgURL} className={`transition ease-linear sm:rounded-[50px] w-full object-cover aspect-video ${(isActive)? '' : 'scale-75'}`}/>
-                  </Link>}
-                  { !banner.url && <div className={`${isActive ? '' : 'brightness-50'} ${(isPrev || isNext || isActive) ? 'opacity-100' : 'opacity-0'} transition`}>
-                    <img src={banner.imgURL} className={`transition ease-linear sm:rounded-[50px] w-full object-cover aspect-video ${(isActive)? '' : 'scale-75'}`}/>
-                  </div>}
-                </div>
-              )} 
-            </SwiperSlide> )}
-          </Swiper>
-        </div> */}
-        
-
-      
         <WishCardModalCarousel data={wishData?.data[dataIndex]!} order={{
           current: dataIndex,
           total: wishData?.total as number

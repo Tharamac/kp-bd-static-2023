@@ -30,7 +30,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/component", "src/component"  ],
+, "src/component", "src/component", "src/lib/mongodb.ts", "src/pages/api/storeWishDB.js", "src/pages/api/storeWishDB.js"  ],
   "exclude": [
     "node_modules"
   ]

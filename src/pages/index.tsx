@@ -25,29 +25,6 @@ const oldStandard = Old_Standard_TT({ weight : '400', subsets : ['latin'] })
 const alegreya = Alegreya_Sans_SC({ weight : '400', subsets : ['latin'] })
 const mali = Mali({ weight : '400', subsets : ['latin'] })
 
-
-// export async function getServerSideProps() {
-//   let res = await fetch(, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-//   let allPosts = await res.json();
-
-//   return {
-//     props: { allPosts },
-//   };
-// }
-
-// export const getServerSideProps = (async (context) => {
-//   const res = await fetch('https://api.github.com/repos/vercel/next.js')
-//   const repo = await res.json()
-//   return { props: { repo } }
-// }) satisfies GetServerSideProps<{
-//   repo: Repo
-// }>
-
 export default function Page() {
   //state variable with setState func
   const [lastSwap, setLastSwap] = useState<DateTime>(DateTime.now())
@@ -140,19 +117,9 @@ export default function Page() {
           <img className='top-0 left-[50% -translate-x-[50%]] md:mt-5 mt-12 w-auto max-h-[400px]' src='/img/banner/banner-transparent.gif'/>
              </div> 
         <Marquee speed={160}>
-           <div className='w-full h-fit flex flex-row gap-2 text-black top-0 z-[1] p-2 text-[60px] text-black justify-center items-center'><b>อวยพรคัมภีร์ได้ที่นี่ <Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji></b></div>
+           <div className='w-full h-fit flex flex-row gap-2 text-black top-0 z-[1] p-2 text-[60px] text-black justify-center items-center'><b>อวยพรคัมภีร์ได้ที่นี่ <Emoji symbol="🔽" ></Emoji></b></div>
         </Marquee>
-       
-       {/*   <div className='relative w-full sm:h-[150px] min-[500px]:h-[130px] min-[425px]:h-[100px] h-[80px]'>
-             <Fade in={true} className='text-center absolute -translate-x-[50%] left-[50%] flex flex-col w-full h-fit'>
-              <h1 className=''>
-              
-                <span className={`${mali.className} sm:text-[58px] min-[500px]:text-[48px] min-[425px]:text-[40px] text-[30px]`}>Happy 24th birthday, คัมภีร์!</span>
-                <span className={`${mali.className} sm:text-3xl min-[500px]:text-2xl min-[425px]:text-xl text-base`}>November 29th, 2023</span>
-              </h1>
-            </Fade> 
-          </div>*/}
-       
+
   
 
       
@@ -180,9 +147,8 @@ export default function Page() {
             }
           } />
 
-        {/* <Marquee speed={160}> */}
-            <div className='w-full h-[100px] flex flex-row gap-2 text-black top-0 z-[1] m-2 text-[60px] text-black justify-center items-center font-semibold'>Kamอวยพรทั้งหมด <Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji><Emoji symbol="👇🏻" ></Emoji></div>
-        {/* </Marquee> */}
+            <div className='w-full h-[100px] flex flex-row gap-2 text-black top-0 z-[1] m-2 md:text-4xl lg:text-[60px]  text-xl  text-black justify-center items-center font-semibold'>Kamอวยพรทั้งหมด</div>
+
 
         {!wishPostError && !wishPostIsLoading && <div className='w-full container '>
           <InfiniteScroll

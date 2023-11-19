@@ -21,10 +21,10 @@ export default function WishCard({data, onOpenModal}: {data: WishEntry, onOpenMo
         </div>
         {/* {ข้อความ} */}
         <div className='flex flex-1 h-full flex-col relative overflow-hidden px-4 py-2'>
-          <span className='text-center text-[#4E4670] sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{data?.message}</span>
+          <span className='text-center text-black sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{data?.message}</span>
 
           <div className='w-full flex grid grid-rows-1 grid-flow-col gap-1 pt-4 min-[425px]:pl-1  min-[425px]:text-base text-sm justify-between'>
-          <b className='text-[#4E4670] min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{data?.sender}</b>
+          <b className='text-black min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{data?.sender}</b>
             <span className='row-start-1 row-span-2'>{data?.createdDate.toFormat('dd LLLL yyyy HH:mm')}
          
               {/* {DateTime.fromISO(post.createdAt).setZone('Asia/Bangkok').toFormat('LLLL')}

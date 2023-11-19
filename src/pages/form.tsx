@@ -32,6 +32,7 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         reset();
         const entry = WishEntry.fromInputs(data);
+        console.log(entry);
         await saveData(entry, mutateFunction);
     }
     const onInvalid: SubmitErrorHandler<Inputs> = (errors) => {
@@ -80,46 +81,94 @@ export default function Form({mutateFunction}: {mutateFunction: Function}) {
                             {/* <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences wishing yourself.</p> */}
                         </div>
 
+                        {/* 
+                        
+                        - [ ] ต่างหูอะมีไว้ประดับหู แต่ยูมีไว้ประดับใจ (earrings)
+                        - [ ] ดอกทานตะวันที่ว่าสดใสก็ยังสดใสไม่เท่าเทอ (sunflower)
+                        - [ ] หน้ากากก็ปิดความหล่อ(แปลก)ของเธอไม่มิดหรอกนะ (kpMask)
+                        - [/] ปกติแพะร้องแบะ ๆๆๆ แต่แพะส้มร้อง โสด ๆๆๆ (orangeGoat)
+                        - [/] ไม่ใช่ส้มก็ร่วงได้เพราะผมคือทุเรียน (orangeDurian)
+                        - [ ] เมเปิ้ลเมใจแล้วเมื่อไหร่เคพีเขาจะมีหวานใจสักที (maple)
+ 
+                        */}
+
                         <div className="col-span-full">
                             <fieldset >
                                 <legend className="text-2xl font-semibold leading-6 text-gray-900 flex">เลือกลายการ์ด</legend>
 
-                                <div className="mt-4 space-x-12 flex">
+                                <div className="ml-4 mt-4 space-y-4">
                                     <div className="flex items-center gap-x-3">
                                         <input
-                                            id="push-everything"
+                                            id="orangeGoat"
                                         
                                             {...register("cardPattern", {required: " \"เลือกซักอย่างนึงดิ๊ โธ่\" - คัมภีร์ไม่ได้กล่าว"})}
                                             value="orangeGoat"
                                             type="radio"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-everything" className="block text-xl font-medium leading-6 text-gray-900">
-                                            แพะส้ม
+                                        <label htmlFor="orangeGoat" className="block text-lg font-medium leading-6 text-gray-900">
+                                            ปกติแพะร้องแบะ ๆๆๆ แต่แพะส้มร้อง โสด ๆๆๆ
                                         </label>
                                     </div>
                                     <div className="flex items-center gap-x-3">
                                         <input
-                                            id="push-email"
+                                            id="orangeDurian"
                                             {...register("cardPattern")}
                                             type="radio"
-                                            value="withSage"
+                                            value="orangeDurian"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-email" className="block text-xl font-medium leading-6 text-gray-900">
-                                            น้ามา
+                                        <label htmlFor="orangeDurian" className="block text-lg font-medium leading-6 text-gray-900">
+                                        ไม่ใช่ส้มก็ร่วงได้เพราะผมคือสายรุ้ง
                                         </label>
                                     </div>
                                     <div className="flex items-center gap-x-3">
                                         <input
-                                            id="push-nothing"
+                                            id="maple"
                                             {...register("cardPattern",  )}
                                             type="radio"
-                                            value="bikini"
+                                            value="maple"
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                         />
-                                        <label htmlFor="push-nothing" className="block text-xl font-medium leading-6 text-gray-900">
-                                            บิกินี่
+                                        <label htmlFor="maple" className="block text-lg font-medium leading-6 text-gray-900">
+                                            เมเปิ้ลเมใจแล้วเมื่อไหร่เคพีเขาจะมีหวานใจสักที 
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center gap-x-3">
+                                        <input
+                                            id="kpMask"
+                                            {...register("cardPattern",  )}
+                                            type="radio"
+                                            value="kpMask"
+                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        />
+                                        <label htmlFor="kpMask" className="block text-lg font-medium leading-6 text-gray-900">
+                                            หน้ากากก็ปิดความหล่อ(แปลก)ของเธอไม่มิดหรอกนะ
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center gap-x-3">
+                                        <input
+                                            id="sunflower"
+                                            {...register("cardPattern",  )}
+                                            type="radio"
+                                            value="sunflower"
+                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        />
+                                        <label htmlFor="sunflower" className="block text-lg font-medium leading-6 text-gray-900">
+                                        ดอกทานตะวันที่ว่าสดใสก็ยังสดใสไม่เท่าเทอ
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center gap-x-3">
+                                        <input
+                                            id="earrings"
+                                            {...register("cardPattern",  )}
+                                            type="radio"
+                                            value="earrings"
+                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        />
+                                        
+                                        <label htmlFor="earrings" className="block text-lg font-medium leading-6 text-gray-900">
+                                            ต่างหูอะมีไว้ประดับหู แต่ยูมีไว้ประดับใจ
                                         </label>
                                     </div>
                                 </div>

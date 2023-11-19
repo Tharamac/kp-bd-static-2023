@@ -111,10 +111,11 @@ export default function Page() {
   return (
     <div className='flex flex-col w-full items-center'>
       <div className={`flex flex-col min-h-screen w-full overflow-x-hidden z-[1] pt-6 pb-16 gap-4 text-[#000000] items-center`}>
-        <div className='flex flex-col w-full items-center relative bg-[#F7C6AF]'>
+        <div className='flex flex-col w-full items-center relative bg-[#f1cbb9]'>
      
             {/* ตัวอักษร */}
-          <img className='top-0 left-[50% -translate-x-[50%]] md:mt-5 mt-12 w-auto max-h-[400px]' src='/img/banner/banner-transparent.gif'/>
+          <img className='top-0 left-[50% -translate-x-[50%]] md:mt-5 mt-12 w-auto max-h-[400px]' 
+              src='/img/banner/kp_header.gif'/>
              </div> 
         <Marquee speed={160}>
            <div className='w-full h-fit flex flex-row gap-2 text-black top-0 z-[1] p-2 text-[60px] text-black justify-center items-center'><b>อวยพรคัมภีร์ได้ที่นี่ <Emoji symbol="🔽" ></Emoji></b></div>

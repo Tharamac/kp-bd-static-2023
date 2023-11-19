@@ -28,7 +28,16 @@ To learn more about Next.js, take a look at the following resources:
 
 ## Credit
 
-OrangeGoat Team (Kamphee FC)
-- Developer: Makuji
+### OrangeGoat Team (Kamphee FC)
+- Developer: Makuji 
 - Designer:
-- 
+    - Tianmin
+    - MSunny_Tel
+    - CxllmeGet
+    - Tara
+    - TonmatOo
+    - Hanabii
+
+### Special Thanks
+- RikiNozumu: Original Source Code
+- TheIceji: Advisor 

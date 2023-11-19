@@ -1,10 +1,9 @@
-# Baku Birthday 2023 : Website Project
-![](public/img/page.png)
-![](public/img/stat.png)
+# KP Birthday 2023 : Website Project
 
-Website for post a wish well to [Baku](https://www.youtube.com/channel/UCO6R8Pc5g2R7ObJQPBGppdg "Baku"), Thai Vtirtual Youtuber from [Algorhythm Project](https://algorhythm.realic.net/ "Algorhythm Project")
 
-Production Website : [https://bakubirthday2023.vtuberthaiinfo.com/](https://bakubirthday2023.vtuberthaiinfo.com/)
+<!-- Website for post a wish well to [Baku](https://www.youtube.com/channel/UCO6R8Pc5g2R7ObJQPBGppdg "Baku"), Thai Vtirtual Youtuber from [Algorhythm Project](https://algorhythm.realic.net/ "Algorhythm Project")
+
+Production Website : [https://bakubirthday2023.vtuberthaiinfo.com/](https://bakubirthday2023.vtuberthaiinfo.com/) -->
 
 ## Getting Started
 
@@ -27,8 +26,9 @@ To learn more about Next.js, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Special thanks
+## Credit
 
-- [Dreamerism89 (Baku's Fanclub Group)](https://twitter.com/Dreamerism89)
-- [Aito (Project Leads)](https://twitter.com/pks_aito)
-- [MAi (UX/UI and Graphic design)](https://twitter.com/imymemai_)
+OrangeGoat Team (Kamphee FC)
+- Developer: Makuji
+- Designer:
+- 

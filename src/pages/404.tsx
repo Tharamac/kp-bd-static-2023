@@ -9,10 +9,13 @@ import { faDiscord, faFacebook, faTiktok } from '@fortawesome/free-brands-svg-ic
 import { Logo } from "@/svg/Logo";
 
 export default function Page404() {
-    return <div className="flex flex-col relative w-full h-screen justify-center items-center overflow-hidden gap-4 bg-[#ed9453]">
-          <div className="text-black text-8xl z-10 w-full text-center ">404 </div>
-        <div className="text-black text-4xl z-10 w-full text-center p-16">หาหน้าเว็บไม่เจอสินะ ไม่เป็นไร! เรามาลองใหม่อีกครั้ง แต่ดู <b className='text-[#ae4304] underline'>คัมภีร์บิกินี่</b> ก่อนเพื่อความเป็นสิริมงคล //แปะรูปเคพีบิกินี่ </div>
-            <div className="flex flex-row gap-6 justify-left text-white items-center">
+    return <div className="flex flex-col relative w-full h-screen justify-center items-center overflow-hidden gap-4 bg-[#ed9453] p-32">
+        <div className="flex flex-row">        <img src="img\404\404.png" className="w-[400px]  rounded-full"/>
+            <div className="flex flex-col justify-left items-left">        
+                <div className="text-black text-8xl font-bold z-10 w-full">404 </div>
+                     <div className="text-black text-4xl z-10 w-full pt-4">หาหน้าเว็บไม่เจอสินะ ไม่เป็นไร! เรามาลองใหม่อีกครั้ง แต่ดู <b className='text-[#ae4304] underline'>คัมภีร์บิกินี่</b> ก่อนเพื่อความเป็นสิริมงคล //แปะรูปเคพีบิกินี่ </div>
+                     
+                               <div className="flex flex-row gap-6 justify-left text-white items-center pt-8">
                 <Link className="flex flex-row items-center gap-4" href={"/"}>
                     <HomeIcon className="text-2xl"/>
                     <span className="text-2xl text-black"><b>คุณอยากมาหน้านี้สินะ อวยพรคัมภีร์น่ะ</b></span>
@@ -26,6 +29,12 @@ export default function Page404() {
                         <span className="min-[431px]:text-2xl text-2xl text-black"> <b>ดิสคอร์ดแฟนคลับของคัมภีร์</b></span>
                     </Link>
             </div>
+                     
+                     </div>
+
+        </div>
+
+  
             
     
     </div>

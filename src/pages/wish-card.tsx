@@ -21,7 +21,7 @@ export default function WishCard({data, onOpenModal}: {data: WishEntry, onOpenMo
         </div>
         {/* {ข้อความ} */}
         <div className='flex flex-1 h-full flex-col relative overflow-hidden px-4 py-2'>
-          <span className='text-center text-black sm:text-xl overflow-hidden justify-center items-center flex flex-1'>{data?.message}</span>
+          <span className='text-left text-black sm:text-xl overflow-hidden justify-left px-6 flex flex-1  leading-8' style={{whiteSpace: 'pre-wrap'}}>{data?.message}</span>
 
           <div className='w-full flex grid grid-rows-1 grid-flow-col gap-1 pt-4 min-[425px]:pl-1  min-[425px]:text-base text-sm justify-between'>
           <b className='text-black min-[425px]:text-[20px] text-[14px] break-words overflow-hidden pt-4 min-[425px]:pr-20 min-[375px]:pr-16 pr-14'>{data?.sender}</b>

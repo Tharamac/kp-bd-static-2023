@@ -30,7 +30,7 @@ export default function Page404() {
                     </Link>
             </div>
                      
-                     </div>
+        </div>
 
         </div>
 

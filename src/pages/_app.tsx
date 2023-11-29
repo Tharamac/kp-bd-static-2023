@@ -60,7 +60,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content={`${process.env.NEXT_PUBLIC_BASE_PATH}`} />
-          <meta property="twitter:title" content="BAKU's Birthday | November 29th" />
+          <meta property="twitter:title" content="KP's Birthday | November 29th" />
           <meta property="twitter:description" content={`เว็บไซต์อวยพรพรวันเกิดของ Kamphee จากเหล่าแพะส้ม`} />
           <meta property="twitter:image" content={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/main_page.png`} />
 

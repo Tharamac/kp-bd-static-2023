@@ -109,10 +109,7 @@ export default function Page() {
     revalidateOnFocus : false
   })
 
-  return <div>
-  {Page404()}
-</div>
-  (
+  return (
     <div className='flex flex-col w-full items-center'>
       <div className={`flex flex-col min-h-screen w-full overflow-x-hidden z-[1] pt-6 pb-16 gap-4 text-[#000000] items-center`}>
         <div className='flex flex-col w-full items-center relative bg-[#f1cbb9]'>

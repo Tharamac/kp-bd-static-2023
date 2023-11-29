@@ -118,12 +118,12 @@ export default function Page() {
           <img className='top-0 left-[50% -translate-x-[50%]] md:mt-5 mt-12 w-auto max-h-[400px]' 
               src='/img/banner/kp_header.gif'/>
              </div> 
-        {/* <Marquee speed={160}>
+        <Marquee speed={160}>
            <div className='w-full h-fit flex flex-row gap-2 text-black top-0 z-[1] p-2 text-[60px] text-black justify-center items-center'><b>อวยพรคัมภีร์ได้ที่นี่ <Emoji symbol="🔽" ></Emoji></b></div>
-        </Marquee> */}
-        {/* <div className='w-full'>
+        </Marquee> 
+         <div className='w-full'>
           <Form mutateFunction={postMutate}></Form>
-        </div> */}
+        </div>
 
         <WishCardModalCarousel data={wishData?.data[dataIndex]!} order={{
           current: dataIndex,
